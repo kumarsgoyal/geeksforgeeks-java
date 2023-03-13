@@ -1,0 +1,49 @@
+
+
+//User function Template for Java
+
+
+/*class Node
+{
+    int data;
+    Node next;
+
+    Node(int data)
+    {
+        this.data = data;
+        next = null;
+    }
+}*/
+class GfG {
+
+    Node cur; // Dont change the variable name, its used in main function
+    int carry; // Dont change the variable name, its used in main function
+
+    //This function is called after the smaller list is added to the sublist of
+    //bigger list of same size. Once the right sublist is added, the carry
+    //must be added to left side of larger list to get the final result.
+    void addCarryToRemaining(Node head, LinkedList res)  {
+        if(head == cur) {
+            return;
+        }
+        addCarryToRemaining(head.next, res);
+        int sum = head.data + carry;
+        res.push(sum % 10);
+        carry = sum / 10;
+    }
+
+    //Function which adds two linked lists of same size represented by head1
+    //and head2 and returns head of the resultant linked list. Carry
+    //is propagated while returning from the recursion
+	void addSameSize(Node head1, Node head2, LinkedList res) {
+	    if(head1 == null || head2 == null) {
+	        return;
+	    }
+
+	    addSameSize(head1.next, head2.next, res);
+
+	    int sum = head1.data + head2.data + carry;
+	    carry = sum / 10;
+	    res.push(sum % 10);
+    }
+}
