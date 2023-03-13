@@ -1,0 +1,61 @@
+
+
+/*
+class Node{
+    int data;
+    Node next;
+
+    Node(int x){
+        data = x;
+        next = null;
+    }
+}
+*/
+
+class Solution
+{
+
+    private static Node reverse(Node head) {
+        Node curr = head;
+        Node prev = null;
+        Node next = null;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    public static Node addOne(Node head) {
+        head = reverse(head);
+        Node curr = head;
+        Node prev = null;
+
+        int carry = 0;
+        curr.data = curr.data + 1;
+
+        while(curr != null) {
+            curr.data = curr.data + carry;
+            carry = 0;
+            if(curr.data >= 10) {
+                carry = curr.data / 10;
+                curr.data = curr.data % 10;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+
+        while(carry > 0) {
+            prev.next = new Node(carry % 10);
+            carry = carry / 10;
+            prev = prev.next;
+        }
+
+        return reverse(head);
+
+    }
+}
