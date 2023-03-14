@@ -1,0 +1,61 @@
+
+
+//User function Template for Java
+
+
+
+//User function Template for Java
+/*
+Node defined as
+class Node{
+    int data;
+    Node left,right;
+    Node(int d){
+        data=d;
+        left=right=null;
+    }
+}
+*/
+class Solution
+{
+    Node head = null;
+    Node prev = null;
+
+    void bTreeToClistUtil(Node root) {
+        if(root == null) {
+            return ;
+        }
+
+        Node left = root.left;
+        Node right = root.right;
+
+        bTreeToClistUtil(left);
+
+        if(prev == null) {
+            head = root;
+        }
+        else {
+            prev.right = root;
+        }
+
+        root.left = prev;
+        root.right = null;
+
+        prev = root;
+
+        bTreeToClistUtil(right);
+
+        return;
+    }
+
+    //Function to convert binary tree into circular doubly linked list.
+    Node bTreeToClist(Node root) {
+        bTreeToClistUtil(root);
+        if(head != null) {
+            prev.right = head;
+            head.left = prev;
+        }
+        return head;
+    }
+
+}
