@@ -1,0 +1,40 @@
+
+
+// your task is to complete this function
+
+/*
+class Node
+{
+    int data;
+    Node next;
+
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}
+*/
+
+class Solution {
+
+    public static int countPairs(LinkedList<Integer> head1, LinkedList<Integer> head2,
+                          int x) {
+        Set<Integer> set = new HashSet<>();
+
+        for(int i : head1) {
+            set.add(i);
+        }
+
+        int count = 0;
+
+        for(int i : head2) {
+            if(set.contains(x - i)) {
+                count++;
+                set.remove(x - i);
+            }
+        }
+
+        return count;
+    }
+}
