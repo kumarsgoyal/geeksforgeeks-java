@@ -1,0 +1,25 @@
+
+
+//User function Template for Java
+
+class Solve
+{
+    static int countTriplets(Node head, int x) {
+        Set<Integer> set = new HashSet<Integer> ();
+        int count = 0;
+        set.add(head.data);
+
+        for(Node p = head.next; p != null; p = p.next) {
+            for(Node q = p.next; q != null; q = q.next) {
+                if(set.contains(x - p.data - q.data) == true) {
+                    count++;
+                }
+            }
+
+            set.add(p.data);
+        }
+
+
+        return count;
+    }
+}
