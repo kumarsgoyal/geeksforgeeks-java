@@ -1,0 +1,42 @@
+
+
+//User function Template for Java
+
+/*
+delete n nodes after m nodes
+The input list will have at least one element
+Node is defined as
+  class Node
+  {
+      int data;
+      Node next;
+      Node(int data)
+      {
+          this.data = data;
+          this.next = null;
+      }
+  }
+*/
+
+class Solution
+{
+    static void linkdelete(Node head, int M, int N)
+    {
+        while(head != null) {
+            int m = M, n = N;
+            while(head != null && m > 1) {
+                head = head.next;
+                m--;
+            }
+
+            while(head != null && head.next != null && n > 0) {
+                head.next = head.next.next;
+                n--;
+            }
+            if(head != null) {
+                head = head.next;
+            }
+        }
+
+    }
+}
