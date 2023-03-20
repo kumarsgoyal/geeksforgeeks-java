@@ -1,0 +1,52 @@
+
+
+/*class Node
+{
+    int data;
+    Node next;
+    Node(int d)
+    {
+        data=d;next=null;
+    }
+}*/
+
+class GFG
+{
+    //This method returns the head of the LL after deleting node with value d.
+    public static Node deleteNode(Node head,int d) {
+        Node curr = head;
+        Node prev = null;
+
+
+        while(curr != null) {
+            if(curr.data == d) {
+                break;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+
+        prev.next = curr.next;
+
+        return head;
+    }
+    //This method returns the head node of the reversed Linked list.
+    public static Node reverse(Node head) {
+        Node result = head;
+
+        Node curr = head;
+        Node prev = null;
+        Node next = null;
+
+        do {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        } while(curr != result);
+
+
+        result.next = prev;
+        return prev;
+    }
+}
