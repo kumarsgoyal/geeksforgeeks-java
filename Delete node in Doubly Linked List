@@ -1,0 +1,54 @@
+
+
+//User function Template for Java
+
+/* Structure of linkedlist node
+class Node
+{
+	int data;
+	Node next;
+	Node prev;
+	Node(int d)
+	{
+		data = d;
+		next = prev = null;
+	}
+}
+*/
+class Solution
+{
+    // function returns the head of the linkedlist
+    Node deleteNode(Node head,int x) {
+	    Node temp = findNode(head, x);
+
+	    if(temp == null) {
+	        return head;
+	    }
+	    else if(temp.prev == null) {
+	        temp.next.prev = null;
+	        head = temp.next;
+	        temp.next = null;
+	        return head;
+	    }
+	    else if(temp.next == null) {
+	        temp.prev.next = null;
+	        temp.prev = null;
+	        return head;
+	    }
+	    else {
+	        temp.next.prev = temp.prev;
+	        temp.prev.next = temp.next;
+	        return head;
+	    }
+
+    }
+
+    Node findNode(Node head, int x) {
+        while(head != null && x > 1) {
+            x--;
+            head = head.next;
+        }
+
+        return head;
+    }
+}
