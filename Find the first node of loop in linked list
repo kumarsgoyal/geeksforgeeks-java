@@ -1,0 +1,68 @@
+
+
+//User function Template for Java
+
+
+/* class Node
+{
+    int data;
+    Node next;
+
+    Node(int x)
+    {
+        data = x;
+        next = null;
+    }
+}*/
+
+class Solution {
+    //Function to find first node if the linked list has a loop.
+    public static int findFirstNode(Node head){
+        return detectLoop(head);
+    }
+
+    private static int detectLoop(Node head) {
+        Node slow = head;
+        Node fast = head;
+
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast) {
+                int size = countLoopSize(slow);
+                return getLastElement(head, size);
+            }
+        }
+
+        return -1;
+    }
+
+    private static int countLoopSize(Node head) {
+        int size = 1;
+        Node curr = head;
+
+        while(curr.next != head) {
+            curr = curr.next;
+            size++;
+        }
+
+        return size;
+    }
+
+    private static int getLastElement(Node head, int size) {
+        Node ptr1 = head;
+        Node ptr2 = head;
+
+        while(size > 0) {
+            size--;
+            ptr2 = ptr2.next;
+        }
+
+        while(ptr1 != ptr2) {
+            ptr1 = ptr1.next;
+            ptr2 = ptr2.next;
+        }
+
+        return ptr1.data;
+    }
+}

@@ -1,0 +1,49 @@
+
+
+/*
+
+class Node
+{
+    int data;
+    Node next;
+    Node(int d) {data = d; next = null; }
+}
+
+*/
+
+//Function should return the length of the loop in LL.
+
+class Solution
+{
+    private static int detectLoop(Node head) {
+        Node slow = head;
+        Node fast = head;
+
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast) {
+                return loopSize(slow);
+            }
+        }
+
+        return 0;
+    }
+
+    private static int loopSize(Node head) {
+        int count = 1;
+        Node curr = head;
+        while(curr.next != head) {
+            curr = curr.next;
+            count++;
+        }
+
+        return count;
+    }
+
+    //Function to find the length of a loop in the linked list.
+    static int countNodesinLoop(Node head) {
+        return detectLoop(head);
+    }
+}

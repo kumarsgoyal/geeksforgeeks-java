@@ -1,0 +1,40 @@
+
+
+/*
+class Node
+{
+    int data;
+    Node next;
+
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}
+*/
+
+class GfG
+{
+    private static int length(Node head) {
+        int len = 0;
+        while(head != null) {
+            head = head.next;
+            len++;
+        }
+
+        return len;
+    }
+
+    public static int nknode(Node head, int k) {
+        int len = length(head);
+        int ceil = (int) Math.ceil((double) len / (double) k);
+
+        while(head != null && ceil > 1) {
+            ceil--;
+            head = head.next;
+        }
+
+        return head.data;
+    }
+}
