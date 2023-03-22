@@ -1,0 +1,121 @@
+
+
+/*Node class  used in the program
+class Node
+{
+	int data;
+	Node next;
+	Node bottom;
+
+	Node(int d)
+	{
+		data = d;
+		next = null;
+		bottom = null;
+	}
+}
+*/
+/*  Function which returns the  root of
+    the flattened linked list. */
+class GfG
+{
+    Node flatten(Node root) {
+
+        Node result = new Node(-1);
+        Node ptr = result;
+
+	    PriorityQueue<Node> que = new PriorityQueue<Node>(
+	        new Comparator<Node> () {
+	            public int compare(Node a, Node b) {
+	                return a.data - b.data;
+	            }
+	        });
+
+	    que.add(root);
+
+	    while(que.isEmpty() == false) {
+
+
+	        Node temp = que.poll();
+	        ptr.bottom = temp;
+	        ptr = ptr.bottom;
+
+
+	        if(temp.next != null) {
+	            que.add(temp.next);
+	        }
+	        if(temp.bottom != null) {
+	            que.add(temp.bottom);
+	        }
+
+	        temp.next = null;
+	        temp.bottom = null;
+	    }
+
+	    return result.bottom;
+    }
+}
+
+
+
+// ------------------------------ OR ----------------------------------------
+
+
+
+
+/*Node class  used in the program
+class Node
+{
+	int data;
+	Node next;
+	Node bottom;
+
+	Node(int d)
+	{
+		data = d;
+		next = null;
+		bottom = null;
+	}
+}
+*/
+/*  Function which returns the  root of
+    the flattened linked list. */
+class GfG
+{
+    Node merge(Node head1, Node head2) {
+        if(head1 == null) {
+            return head2;
+        }
+
+        if(head2 == null) {
+            return head1;
+        }
+
+        Node result = null;
+
+        if(head1.data <= head2.data) {
+            result = head1;
+            result.bottom = merge(head1.bottom, head2);
+        }
+        else {
+            result = head2;
+            result.bottom = merge(head1, head2.bottom);
+        }
+
+        result.next = null;
+
+        return result;
+    }
+
+    Node flatten(Node root) {
+	    if(root == null || root.next == null) {
+	        return root;
+	    }
+
+	    root.next = flatten(root.next);
+
+	    root = merge(root, root.next);
+
+	    return root;
+    }
+}

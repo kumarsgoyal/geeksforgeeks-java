@@ -1,0 +1,26 @@
+
+
+//User function Template for Java
+
+class Solution
+{
+    static Node prev = null;
+
+    public static void flatten(Node root) {
+        if(root == null) {
+            return;
+        }
+
+        Node left = root.left;
+        Node right = root.right;
+
+        if(prev != null) {
+            prev.right = root;
+        }
+        prev = root;
+        root.left = null;
+
+        flatten(left);
+        flatten(right);
+    }
+}
