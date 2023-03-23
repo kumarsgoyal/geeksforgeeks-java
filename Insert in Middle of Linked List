@@ -1,0 +1,51 @@
+
+
+/*
+Structure of node class is:
+class Node {
+    int data;
+    Node next;
+
+    public Node(int data){
+        this.data = data;
+        this.next = null;
+    }
+}
+*/
+class Solution {
+
+    public Node insertInMid(Node head, int data){
+        Node temp = new Node(data);
+
+        if(head == null) {
+            return temp;
+        }
+
+        if(head != null && head.next == null) {
+            head.next = temp;
+            return head;
+        }
+
+        Node slow = head;
+        Node fast = head;
+        Node prev = null;
+
+
+        while(fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        if(fast != null) {
+	        temp.next = slow.next;
+	        slow.next = temp;
+	    }
+	    else {
+	        prev.next = temp;
+	        temp.next = slow;
+	    }
+
+        return head;
+    }
+}
