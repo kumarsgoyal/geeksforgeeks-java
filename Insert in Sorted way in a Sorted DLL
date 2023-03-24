@@ -1,0 +1,51 @@
+
+
+/*class of the node of the DLL is as
+class Node {
+	int data;
+    Node prev, next;
+    Node(int item)
+    {data = item;
+        next = prev = null;
+    }
+}
+*/
+// function should insert a new node in sorted way in
+// a sorted doubly linked list
+class GfG
+{
+    public static Node sortedInsert(Node head, int x) {
+        Node temp = new Node(x);
+
+        if(head == null) {
+            return temp;
+        }
+        else if(x <= head.data) {
+            temp.next = head;
+            head.prev = temp;
+            return temp;
+        }
+        else {
+            Node curr = head;
+            Node prev = null;
+
+            while(curr != null && x > curr.data) {
+                prev = curr;
+                curr = curr.next;
+            }
+
+            if(curr != null) {
+                temp.prev = prev;
+                prev.next = temp;
+                temp.next = curr;
+                curr.prev = temp;
+            }
+            else {
+                prev.next = temp;
+                temp.prev = prev;
+            }
+
+            return head;
+        }
+    }
+}
