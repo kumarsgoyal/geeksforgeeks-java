@@ -1,5 +1,4 @@
 
-
 /* Node of a linked list
  class Node {
    int data;
