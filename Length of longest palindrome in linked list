@@ -1,0 +1,59 @@
+
+
+/*Complete the function below
+Node is as follows:
+class Node{
+	int data;
+	Node next;
+	Node(int d){
+		data=d;
+		next=null;
+	}
+}*/
+class GfG {
+    static int maxPalindrome;
+    static Node revHead = null;
+    static Node ptr = null;
+
+    private static void maxPalindromeUtil(Node head1, Node head2) {
+        maxPalindrome = Math.max(maxPalindrome, (compare(head1, head2) * 2));
+        maxPalindrome = Math.max(maxPalindrome, (compare(head1, head2.next) * 2) + 1);
+        head2.next = revHead;
+        revHead = head2;
+    }
+
+
+    private static int compare(Node head1, Node head2) {
+        int len = 0;
+
+        while(head1 != null && head2 != null) {
+            if(head1.data != head2.data) {
+                break;
+            }
+            head1 = head1.next;
+            head2 = head2.next;
+            len++;
+        }
+
+        return len;
+    }
+
+    public static int maxPalindrome(Node head) {
+        maxPalindrome = 1;
+        if(head.next == null) {
+            return maxPalindrome;
+        }
+        Node curr = head.next;
+        revHead = head;
+        ptr = revHead;
+        revHead.next = null;
+
+        while(curr != null) {
+            Node next = curr.next;
+            maxPalindromeUtil(revHead, curr);
+            curr = next;
+        }
+
+        return maxPalindrome;
+    }
+}
