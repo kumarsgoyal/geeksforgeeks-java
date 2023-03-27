@@ -1,0 +1,48 @@
+
+
+/*Node is as follows:
+
+class Node {
+    int data;
+    Node next;
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+
+*/
+
+class Solution{
+
+    private static Node zigZagUtil(Node head) {
+        boolean flag = true;
+        Node curr = head;
+        int temp;
+
+        while(curr != null && curr.next != null) {
+            if(flag == true) {
+                if(curr.data > curr.next.data) {
+                    temp = curr.next.data;
+                    curr.next.data = curr.data;
+                    curr.data = temp;
+                }
+            }
+            else {
+                if(curr.data < curr.next.data) {
+                    temp = curr.next.data;
+                    curr.next.data = curr.data;
+                    curr.data = temp;
+                }
+            }
+            curr = curr.next;
+            flag = !flag;
+        }
+
+        return head;
+    }
+
+	public static Node zigZag(Node head){
+        return zigZagUtil(head);
+    }
+}
