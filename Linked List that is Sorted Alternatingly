@@ -1,0 +1,93 @@
+
+
+/*
+Structure of node class is:
+
+class Node {
+    int data;
+    Node next;
+
+    public Node (int data){
+        this.data = data;
+        this.next = null;
+    }
+}
+*/
+class Solution {
+
+    private Node reverse(Node head) {
+        Node next = null;
+        Node prev = null;
+        Node curr = head;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    private Node merge(Node head1, Node head2) {
+        Node result = new Node(0);
+        Node curr = result;
+
+        while(head1 != null && head2 != null) {
+            if(head1.data <= head2.data) {
+                curr.next = head1;
+                head1 = head1.next;
+            }
+            else {
+                curr.next = head2;
+                head2 = head2.next;
+            }
+            curr = curr.next;
+        }
+
+         while(head1 != null) {
+            curr.next = head1;
+            head1 = head1.next;
+            curr = curr.next;
+        }
+
+         while(head2 != null) {
+            curr.next = head2;
+            head2 = head2.next;
+            curr = curr.next;
+        }
+
+        return result.next;
+    }
+
+    public Node sort(Node head){
+        Node sortedList = new Node(0);
+        Node unsortedList = new Node(0);
+
+        Node sptr = sortedList;
+        Node usptr = unsortedList;
+        boolean flag = true;
+
+        while(head != null) {
+            if(flag == true) {
+                sptr.next = head;
+                sptr = sptr.next;
+            }
+            else {
+                usptr.next = head;
+                usptr = usptr.next;
+            }
+            head = head.next;
+            flag = !flag;
+        }
+
+        usptr.next = null;
+        sptr.next = null;
+
+        unsortedList = reverse(unsortedList.next);
+
+        return merge(sortedList.next, unsortedList);
+    }
+
+}
