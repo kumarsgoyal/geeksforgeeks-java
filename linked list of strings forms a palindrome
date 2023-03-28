@@ -1,0 +1,36 @@
+
+
+/*node class of the linked list
+class Node
+{
+    String data;
+    Node next;
+    Node(String key)
+    {
+        data = key;
+        next = null;
+    }
+}*/
+class GfG
+{
+    public static boolean compute(Node node) {
+        StringBuilder str = new StringBuilder();
+
+        while(node != null) {
+            str.append(node.data);
+            node = node.next;
+        }
+
+        int i = 0, j = str.length() - 1;
+
+        while(i < j) {
+            if(str.charAt(i) != str.charAt(j)) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+
+        return true;
+    }
+}
