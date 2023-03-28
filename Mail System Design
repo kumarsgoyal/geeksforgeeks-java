@@ -1,0 +1,112 @@
+
+
+// User function Template for Java
+/*Given below is the structure of node class:
+the list moves from left to right
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int x){
+    	this.data = x;
+    }
+}*/
+
+class ListNode {
+    Node head;
+    Node last;
+
+    ListNode() {
+        head = null;
+        last = null;
+    }
+
+    void addLast(Node node) {
+        if(head == null) {
+            head = node;
+            last = node;
+        }
+        else {
+            node.left = last;
+            last.right = node;
+            last = node;
+        }
+    }
+
+    Node getHead() {
+        return head;
+    }
+
+    Node remove(int key) {
+        Node temp = head;
+        Node result = null;
+
+        while(temp != null) {
+            if(temp.data == key) {
+                result = temp;
+                break;
+            }
+            temp = temp.right;
+        }
+
+        if(result.left != null) {
+            result.left.right = result.right;
+        }
+        else {
+            head = result.right;
+        }
+
+        if(result.right != null) {
+            result.right.left = result.left;
+        }
+        else {
+            last = result.left;
+        }
+
+        result.left = null;
+        result.right = null;
+        return result;
+    }
+}
+
+class Solution{
+    static List<Node> mailDesign(int N, int Q, int query[]){
+        List<Node> result = new ArrayList<Node>();
+        ListNode unread = new ListNode();
+        ListNode read = new ListNode();
+        ListNode trash = new ListNode();
+
+        for(int i = 1; i <= N; i++) {
+            unread.addLast(new Node(i));
+        }
+
+        // 1 = unread, 2 = read, 3 = delete
+        for(int i = 0; i < Q * 2; i += 2) {
+            int index1 = i;
+            int index2 = i + 1;
+
+            if(query[index1] == 1) {
+                Node temp = unread.remove(query[index2]);
+                read.addLast(temp);
+            }
+            else if(query[index1] == 2) {
+                Node temp = read.remove(query[index2]);
+                trash.addLast(temp);
+            }
+            else if(query[index1] == 3) {
+                Node temp = unread.remove(query[index2]);
+                trash.addLast(temp);
+            }
+            else {
+                Node temp = trash.remove(query[index2]);
+                read.addLast(temp);
+            }
+        }
+
+        result.add(unread.getHead());
+        result.add(read.getHead());
+        result.add(trash.getHead());
+
+        return result;
+    }
+}
