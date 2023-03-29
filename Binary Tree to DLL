@@ -1,5 +1,4 @@
 
-
 //User function Template for Java
 
 /* class Node
@@ -48,5 +47,5 @@ class Solution
         prev = root;
 
         binarySupport(root.right);
-    }
+    } 
 }
