@@ -1,0 +1,63 @@
+
+
+/* Structure of the node*/
+/* class Node
+{
+	int data;
+	Node next;
+
+	Node(int d)
+	{
+		data = d;
+		next = null;
+	}
+} */
+
+class GfG
+{
+    Node mergeResult(Node head1, Node head2) {
+        Node result = new Node(0);
+		Node curr = result;
+
+		while(head1 != null && head2 != null) {
+		    if(head1.data <= head2.data) {
+		        curr.next = head1;
+		        head1 = head1.next;
+		    }
+		    else {
+		        curr.next = head2;
+		        head2 = head2.next;
+		    }
+		    curr = curr.next;
+		}
+
+		while(head1 != null) {
+		    curr.next = head1;
+		    head1 = head1.next;
+		    curr = curr.next;
+		}
+
+		while(head2 != null) {
+		    curr.next = head2;
+		    head2 = head2.next;
+		    curr = curr.next;
+		}
+
+		return reverse(result.next);
+    }
+
+    Node reverse(Node head) {
+        Node prev = null;
+        Node curr = head;
+        Node next = null;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+}
