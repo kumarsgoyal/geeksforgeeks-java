@@ -1,0 +1,85 @@
+
+
+//User function Template for Java
+/*
+class Node
+{
+    int data;
+    Node next;
+    Node(int key)
+    {
+        this.data = key;
+        next = null;
+    }
+} */
+
+class Solution
+{
+    //Function to sort the given linked list using Merge Sort.
+    static Node mergeSort(Node head)
+    {
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        Node[] split = splitList(head);
+
+        Node left = mergeSort(split[0]);
+        Node right = mergeSort(split[1]);
+
+        return merge(left, right);
+    }
+
+    private static Node[] splitList(Node head) {
+        Node[] result = new Node[2];
+
+        Node slow = head;
+        Node fast = head;
+        Node prev = null;
+
+        while(fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        result[0] = head;
+        result[1] = slow;
+        prev.next = null;
+
+        return result;
+    }
+
+    private static Node merge(Node head1, Node head2) {
+        Node result = new Node(0);
+        Node curr = result;
+
+        while(head1 != null && head2 != null) {
+            if(head1.data <= head2.data) {
+                curr.next = head1;
+                head1 = head1.next;
+            }
+            else {
+                curr.next = head2;
+                head2 = head2.next;
+            }
+            curr = curr.next;
+        }
+
+        while(head1 != null) {
+            curr.next = head1;
+            head1 = head1.next;
+            curr = curr.next;
+        }
+
+        while(head2 != null) {
+            curr.next = head2;
+            head2 = head2.next;
+            curr = curr.next;
+        }
+
+        curr.next = null;
+
+        return result.next;
+    }
+}
