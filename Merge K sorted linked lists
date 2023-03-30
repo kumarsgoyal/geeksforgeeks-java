@@ -1,0 +1,52 @@
+
+
+/*class Node
+{
+    int data;
+    Node next;
+
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}
+*/
+
+// a is an array of Nodes of the heads of linked lists
+// and N is size of array a
+
+
+class Solution
+{
+    //Function to merge K sorted linked list.
+    Node mergeKList(Node[]arr,int K) {
+        PriorityQueue<Node> que = new PriorityQueue<> (
+            new Comparator<Node>() {
+            public int compare(Node a, Node b) {
+                return a.data - b.data;
+            }
+        });
+
+        for(int i = 0; i < arr.length; i++) {
+            que.add(arr[i]);
+        }
+
+        Node result = new Node(-1);
+        Node ptr = result;
+
+
+        while(que.size() > 0) {
+            Node top = que.poll();
+
+            if(top.next != null) {
+                que.add(top.next);
+            }
+
+            ptr.next = top;
+            ptr = ptr.next;
+        }
+
+        return result.next;
+    }
+}
