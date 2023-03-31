@@ -1,0 +1,47 @@
+
+
+// User function Template for Java
+
+class Solution {
+    int MissingNumber(int array[], int n) {
+        int sum = 0;
+        int actualSum = 0;
+
+        for(int i = 0; i < n - 1; i++) {
+            sum = sum + i + 1;
+            actualSum = actualSum + array[i];
+        }
+        sum = sum + n;
+
+        return sum - actualSum;
+
+    }
+}
+
+
+
+
+// --------------------------------- OR -----------------------------------
+
+
+
+
+// User function Template for Java
+
+class Solution {
+    int MissingNumber(int array[], int n) {
+        int sum = 0;
+        int actualSum = 0;
+
+        for(int i = 1; i <= n; i++) {
+            actualSum = actualSum ^ i;
+        }
+
+        for(int i = 0; i < n - 1; i++) {
+            sum = sum ^ (array[i]);
+        }
+
+        return actualSum ^ sum;
+
+    }
+}
