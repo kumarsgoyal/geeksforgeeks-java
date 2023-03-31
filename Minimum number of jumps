@@ -1,0 +1,30 @@
+
+
+class Solution{
+
+    static int getMinJumps(int[] arr, int l, int h) {
+        if(l >= h) {
+            return 0;
+        }
+
+        int minJumps = Integer.MAX_VALUE - 1;
+
+        for(int i = 1; i <= arr[l] && i < h; i++) {
+            int jump = 1 + getMinJumps(arr, i + l, h);
+            if(jump < minJumps) {
+                minJumps = jump;
+            }
+        }
+
+        return minJumps;
+    }
+
+    static int minJumps(int[] arr) {
+        return getMinJumps(arr, 0, arr.length - 1);
+    }
+}
+
+
+// -------------------------------- OR -------------------------------------
+
+
