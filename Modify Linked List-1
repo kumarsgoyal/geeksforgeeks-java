@@ -1,0 +1,86 @@
+
+
+/*
+class Node {
+    int data;
+    Node next;
+
+    public Node(int data){
+        this.data = data;
+        this.next = null;
+    }
+}
+*/
+
+class Solution {
+
+    private Node[] splitList(Node head) {
+        Node[] result = new Node[2];
+
+        Node slow = head;
+        Node fast = head;
+        Node prev = null;
+
+        while(fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        result[0] = head;
+        result[1] = slow;
+        prev.next = null;
+
+        return result;
+    }
+
+    private Node reverse(Node head) {
+        Node curr = head;
+        Node next = null;
+        Node prev = null;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    private void modifyUtil(Node head1, Node head2) {
+        while(head1 != null && head2 != null) {
+
+            head1.data = head1.data - head2.data;
+            head1 = head1.next;
+            head2 = head2.next;
+        }
+    }
+
+    private Node merge(Node head1, Node head2) {
+        Node curr = head1;
+
+        while(curr.next != null) {
+            curr = curr.next;
+        }
+
+        curr.next = head2;
+
+        return head1;
+    }
+
+
+
+    public Node modify(Node head){
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        Node[] split = splitList(head);
+        split[1] = reverse(split[1]);
+        modifyUtil(split[0], split[1]);
+        split[1] = reverse(split[1]);
+        return merge(split[0], split[1]);
+    }
+}
