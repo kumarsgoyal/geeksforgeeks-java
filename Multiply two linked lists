@@ -1,0 +1,40 @@
+
+
+/*Node is defined as
+class Node
+{
+    int data;
+    Node next;
+    Node(int data) {
+        this.data=data;
+        this.next = null;
+    }
+}*/
+
+class GfG{
+  /*You are required to complete this method */
+
+    private static long MOD = 1000000007;
+
+    private long getTotal(Node head) {
+        long value = 0;
+        int index = 0;
+
+        while(head != null) {
+            value = (value * 10) % MOD + head.data;
+            index++;
+            head = head.next;
+        }
+
+        return value;
+    }
+
+    public long multiplyTwoLists(Node l1,Node l2){
+        long result = 0;
+
+        long head1 = getTotal(l1);
+        long head2 = getTotal(l2);
+
+        return (head1 * head2) % MOD;
+    }
+}
