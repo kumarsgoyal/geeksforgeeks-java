@@ -1,0 +1,44 @@
+
+
+/* Structure of node
+
+class Node
+{
+    int data;
+    Node next;
+    Node(int d) {data = d; next = null; }
+}
+*/
+
+class GfG
+{
+    //Function to find the data of nth node from the end of a linked list.
+
+    private int countListNode(Node head) {
+        int size = 0;
+
+        while(head != null) {
+            head = head.next;
+            size++;
+        }
+
+        return size;
+    }
+
+    int getNthFromLast(Node head, int n) {
+        int size = countListNode(head);
+
+        if(n > size) {
+            return -1;
+        }
+
+        int count = size - n;
+
+        while(count > 0) {
+            count--;
+            head = head.next;
+        }
+
+        return head.data;
+    }
+}
