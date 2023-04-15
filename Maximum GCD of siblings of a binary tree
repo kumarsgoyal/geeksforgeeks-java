@@ -1,0 +1,38 @@
+class Solution {
+    static int maxBinTreeGCD(ArrayList<ArrayList<Integer>> arr, int N) {
+        int ans = 0;
+        
+        if(N == 1 || N == 2) 
+            return ans;
+        
+        Collections.sort(arr, (a, b) -> a.get(0) - b.get(0));
+        
+        for(int i = 0; i < arr.size() - 1; i++) {
+            ArrayList<Integer> a = arr.get(i);
+            ArrayList<Integer> b = arr.get(i + 1);
+            
+            if(a.get(0) == b.get(0)) {
+                ans = Math.max(gcdUtil(a.get(1), b.get(1)), ans);
+                i++;
+            }
+        }
+        
+        return ans;
+    }
+    
+    static int gcdUtil(int a, int b) {
+        while (a > 0 && b > 0) {
+            if (a > b) { 
+                a = a % b; 
+            } 
+            else { 
+                b = b % a; 
+            } 
+        }
+        if (a == 0) { 
+            return b; 
+        } 
+        return a; 
+    }
+    
+};
