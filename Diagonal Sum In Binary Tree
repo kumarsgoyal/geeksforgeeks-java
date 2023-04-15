@@ -1,0 +1,41 @@
+/*Complete the function below
+Node is as follows:
+class Node{
+    int data;
+    Node left,right;
+    Node(int d){
+        data=d;
+        left=right=null;
+    }
+}
+*/
+class Tree {
+    public static ArrayList <Integer> diagonalSum(Node root) {
+        int height = diagonalHeightUtil(root, 1);
+        ArrayList<Integer> res = new ArrayList<> ();
+        
+        for(int i = 1; i < height; i++)
+            res.add(0);
+        
+        diagonalSumUtil(root, 0, res); 
+        return res;
+    }
+    
+    private static int diagonalHeightUtil(Node root, int height) {
+        if(root == null)
+            return height;
+        
+        return Math.max(diagonalHeightUtil(root.left, height + 1), diagonalHeightUtil(root.right, height)); 
+    }
+    
+    private static void diagonalSumUtil(Node root, int height, ArrayList<Integer> res) {
+        if(root == null)
+            return ;
+        
+        res.set(height, res.get(height) + root.data);
+        
+        diagonalSumUtil(root.right, height, res);
+        diagonalSumUtil(root.left, height + 1, res);
+    }
+    
+}
