@@ -1,0 +1,67 @@
+
+// Iteration 
+// Time Complexity: O(n)
+// Auxiliary Space: O(n)
+// 1) Create an empty stack S.
+// 2) Initialize current node as root
+// 3) Push the current node to S and set current = current->left until current is NULL
+// 4) If current is NULL and stack is not empty then 
+//      a) Pop the top item from stack.
+//      b) Print the popped item, set current = popped_item->right 
+//      c) Go to step 3.
+// 5) If current is NULL and stack is empty then we are done.
+
+class Solution {
+    // Function to return a list containing the inorder traversal of the tree.
+    ArrayList<Integer> inOrder(Node root) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        inOrderUtil(root, res);
+        
+        return res;
+    }
+    
+    private void inOrderUtil(Node root, ArrayList<Integer> res) {
+        Stack<Node> stack = new Stack<> ();
+        Node curr = root;
+        
+        while(stack.empty() == false || curr != null) {
+            while(curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+            
+            curr = stack.pop();
+            res.add(curr.data);
+            curr = curr.right;
+        }
+    }
+}
+
+
+
+/*
+
+// Recursion 
+// Time Complexity: O(N)
+// Auxiliary Space: If we don’t consider the size of the stack for function calls then O(1) otherwise O(h) where h is the height of the tree. 
+
+class Solution {
+    // Function to return a list containing the inorder traversal of the tree.
+    ArrayList<Integer> inOrder(Node root) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        inOrderUtil(root, res);
+        
+        return res;
+    }
+    
+    private void inOrderUtil(Node root, ArrayList<Integer> res) {
+        if(root == null) 
+            return;
+        
+        inOrderUtil(root.left, res);
+        res.add(root.data);
+        inOrderUtil(root.right, res);
+    }
+}
+
+*/
