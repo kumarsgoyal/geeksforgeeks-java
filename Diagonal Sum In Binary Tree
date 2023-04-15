@@ -1,3 +1,4 @@
+
 /*Complete the function below
 Node is as follows:
 class Node{
@@ -11,10 +12,10 @@ class Node{
 */
 class Tree {
     public static ArrayList <Integer> diagonalSum(Node root) {
-        int height = diagonalHeightUtil(root, 1);
+        int height = diagonalHeightUtil(root, 0);
         ArrayList<Integer> res = new ArrayList<> ();
         
-        for(int i = 1; i < height; i++)
+        for(int i = 0; i < height; i++)
             res.add(0);
         
         diagonalSumUtil(root, 0, res); 
