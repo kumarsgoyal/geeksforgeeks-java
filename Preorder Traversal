@@ -1,0 +1,83 @@
+// Iteration 
+// Time Complexity: O(n)
+// Auxiliary Space: O(n)
+
+// 1) Create an empty stack S.
+// 2) Initialize current node as root
+// 3) 
+//      a) Print the popped item, set current = popped_item->right 
+//      b) Push the current node to S and set current = current->left until current is NULL
+// 4) If current is NULL and stack is not empty then 
+//      a) Pop the top item from stack.
+//      b) set current = popped_item->right 
+//      c) Go to step 3.
+// 5) If current is NULL and stack is empty then we are done.
+
+
+class BinaryTree {
+    //Function to return a list containing the preorder traversal of the tree.
+    static ArrayList<Integer> preorder(Node root) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        preorderUtil(root, res);
+        
+        return res;
+    }
+    
+     private static void preorderUtil(Node root, ArrayList<Integer> res) {
+        Stack<Node> stack = new Stack<> ();
+        Node curr = root;
+        
+        while(curr != null || stack.empty() == false) {
+            while(curr != null) {
+                res.add(curr.data);
+                stack.add(curr);
+                curr = curr.left;
+            }
+            
+            curr = stack.pop();
+            curr = curr.right;
+        }
+    }
+}
+
+
+
+/*
+
+// Recursion 
+// Time Complexity: O(N)
+// Auxiliary Space: If we don’t consider the size of the stack for function calls then O(1) otherwise O(h) where h is the height of the tree. 
+
+
+// class Node{
+//     int data;
+//     Node left,right;
+//     Node(int d){
+//         data=d;
+//         left=right=null;
+//     }
+// }
+
+class BinaryTree
+{
+    //Function to return a list containing the preorder traversal of the tree.
+    static ArrayList<Integer> preorder(Node root) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        preorderUtil(root, res);
+        
+        return res;
+    }
+    
+    private static void preorderUtil(Node root, ArrayList<Integer> res) {
+        if(root == null) 
+            return;
+            
+        res.add(root.data);
+        
+        preorderUtil(root.left, res);
+        preorderUtil(root.right, res);
+    }
+
+}
+
+*/
