@@ -1,0 +1,34 @@
+class Solution{
+	Node nextRight(Node root, int key) {
+		
+		Queue<Node> que = new LinkedList<> ();
+		que.add(root);
+		
+		while(que.isEmpty() == false) {
+		    
+		    int size = que.size();
+		    
+		    while(size > 0) {
+    		    Node temp = que.poll();
+    		    
+    		    if(temp.data == key && size > 1) {
+    		        return que.peek();
+    		    }
+    		    else if(temp.data == key) {
+    		        return new Node(-1);
+    		    }
+    		    
+    		    if(temp.left != null) 
+    		        que.add(temp.left);
+    		    if(temp.right != null)
+    		        que.add(temp.right);
+    		  
+    		    size--;
+		    }
+		        
+		}
+		
+		return new Node(-1);
+		
+    }
+}
