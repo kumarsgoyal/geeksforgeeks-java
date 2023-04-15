@@ -1,0 +1,97 @@
+
+// Iteration 
+// Time Complexity: O(n)
+// Auxiliary Space: O(n)
+// 1.1 Create an empty stack
+// 2.1 Do following while root is not NULL
+//     a) Push root's right child and then root to stack.
+//     b) Set root as root's left child.
+// 2.2 Pop an item from stack and set it as root.
+//     a) If the popped item has a right child and the right child 
+//        is at top of stack, then remove the right child from stack,
+//        push the root back and set root as root's right child.
+//     b) Else print root's data and set root as NULL.
+// 2.3 Repeat steps 2.1 and 2.2 while stack is not empty.
+
+
+class Tree {
+    //Function to return a list containing the postorder traversal of the tree.
+    ArrayList<Integer> postOrder(Node root) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        postOrderUtil(root, res);
+        
+        return res;
+    }
+    
+    private void postOrderUtil(Node root, ArrayList<Integer> res) {
+        Stack<Node> stack = new Stack<> ();
+        Node curr = root;
+        
+        while (curr != null || stack.empty() == false) {
+            while(curr != null) {
+                if(curr.right != null) 
+                    stack.push(curr.right);
+                stack.push(curr);
+                curr = curr.left;
+            }
+            
+            curr = stack.pop();
+            
+            // node is having right child and yet to process
+            // pop out child 
+            if((curr.right != null) && stack.empty() == false && (curr.right == stack.peek())) {
+                stack.pop();
+                stack.push(curr);
+                curr = curr.right;
+            }
+            else {
+                res.add(curr.data);
+                curr = null;
+            }
+        }
+    }
+    
+}
+
+
+
+
+/*
+
+// Recursion 
+// Time Complexity: O(N)
+// Auxiliary Space: If we don’t consider the size of the stack for function calls then O(1) otherwise O(h) where h is the height of the tree. 
+
+
+// class Node{
+//     int data;
+//     Node left,right;
+//     Node(int d){
+//         data=d;
+//         left=right=null;
+//     }
+// }
+
+class BinaryTree
+{
+    //Function to return a list containing the preorder traversal of the tree.
+   ArrayList<Integer> postOrder(Node root) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        postOrderUtil(root, res);
+        
+        return res;
+    }
+    
+    private static void postOrderUtil(Node root, ArrayList<Integer> res) {
+        if(root == null) 
+            return;
+            
+        postOrderUtil(root.left, res);
+        postOrderUtil(root.right, res);
+        
+        res.add(root.data);
+    }
+
+}
+
+*/
