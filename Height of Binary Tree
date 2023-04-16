@@ -1,0 +1,40 @@
+class Solution {
+    //Function to find the height of a binary tree.
+    int height(Node node) {
+        if(node == null) 
+            return 0;
+        
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+}
+
+
+/*
+
+class Solution {
+    //Function to find the height of a binary tree.
+    int height(Node node) {
+        Queue<Node> que = new LinkedList<> ();
+        int ans = 0;
+        
+        que.add(node); 
+        while(que.isEmpty() == false) {
+            int size = que.size();
+            while(size > 0) {
+                Node temp = que.remove();
+                
+                if(temp.left != null) 
+                    que.add(temp.left);
+                if(temp.right != null)
+                    que.add(temp.right);
+                    
+                size--;
+            }
+            ans++;
+        }
+        
+        return ans;
+    }
+}
+
+*/
