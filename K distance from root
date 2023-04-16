@@ -1,0 +1,37 @@
+
+/*
+class Node
+{
+    int data;
+    Node left, right;
+   Node(int item)    {
+        data = item;
+        left = right = null;
+    }
+} */
+
+class Tree {
+    // Recursive function to print right view of a binary tree.
+    ArrayList<Integer> Kdistance(Node root, int k) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        
+        KdistanceUtil(root, k, 0, res);
+        
+        return res;
+    }
+    
+    private void KdistanceUtil(Node root, int k, int d, ArrayList<Integer> res) {
+        if(root == null) {
+            return;
+        }
+        
+        if(d == k) {
+            res.add(root.data);
+            return;
+        }
+        
+        KdistanceUtil(root.left, k, d + 1, res);
+        KdistanceUtil(root.right, k, d + 1, res);
+        
+    }
+}
