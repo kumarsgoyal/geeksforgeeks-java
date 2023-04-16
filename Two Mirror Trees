@@ -1,0 +1,27 @@
+/* A Binary Tree node
+class Node
+{
+    int data;
+    Node left, right;
+   Node(int item)    {
+        data = item;
+        left = right = null;
+    }
+} */
+
+class Solution {
+    boolean areMirror(Node a, Node b) {
+        return areMirrorUtil(a, b);
+    }
+    
+    private boolean areMirrorUtil(Node a, Node b) {
+        if(a == null && b == null)  
+            return true;
+        
+        if(a == null || b == null || a.data != b.data) 
+            return false;
+        
+        return areMirrorUtil(a.left, b.right) && areMirrorUtil(a.right, b.left);
+        
+    }
+}
