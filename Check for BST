@@ -1,0 +1,18 @@
+public class Solution {
+    int prev = Integer.MIN_VALUE;
+        
+    //Function to check whether a Binary Tree is BST or not.
+    boolean isBST(Node root) {
+        if(root == null) 
+            return true;
+        
+        boolean left = isBST(root.left);
+        if(prev >= root.data) {
+            return false;
+        }
+        prev = root.data;
+        boolean right = isBST(root.right);
+        
+        return left && right;
+    }
+}
