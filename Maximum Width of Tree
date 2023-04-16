@@ -1,0 +1,38 @@
+/* A Binary Tree node
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+} */
+
+class Solution {
+    // Function to get the maximum width of a binary tree.
+    int getMaxWidth(Node root) {
+        Queue<Node> que = new LinkedList<> ();
+        int ans = 1;
+        
+        que.add(root);
+        while(que.isEmpty() == false) {
+            int size = que.size();
+            ans = Math.max(size, ans);
+            while(size > 0) {
+                Node temp = que.remove();
+                
+                if(temp.left != null)
+                    que.add(temp.left);
+                if(temp.right != null)
+                    que.add(temp.right);
+                    
+                size--;
+            }
+        }
+        
+        return ans;
+    }
+}
