@@ -1,0 +1,39 @@
+
+/* A binary tree node class
+class Node
+{
+	int data;
+	Node left,right;
+	
+	Node(int d)
+	{
+		data = d;
+		left = right = null;		
+	}
+} */
+
+class Tree {
+    
+    //Function to check whether a binary tree is balanced or not.
+    boolean isBalanced(Node root) {
+        boolean[] flag = new boolean[] {true};
+        
+        isBalancedHeight(root, flag);
+	    return flag[0];
+    }
+    
+    
+    private int isBalancedHeight(Node root, boolean[] flag) {
+        if(root == null || flag[0] == false) {
+            return 0;
+        }
+        
+        int left = isBalancedHeight(root.left, flag);
+        int right = isBalancedHeight(root.right, flag);
+        
+        if(Math.abs(left - right) > 1) 
+            flag[0] = false;
+        
+        return 1 + (Math.max(left, right));
+    }
+}
