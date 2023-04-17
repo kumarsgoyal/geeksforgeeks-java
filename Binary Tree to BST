@@ -1,0 +1,60 @@
+/*Structure of the node class is
+class Node
+{
+    int data;
+    Node left, right;
+    Node(int item){
+        data = item;
+        left = right = null;
+    }
+} */
+
+
+class Solution {
+    
+    private int index = 0;
+    
+    // The given root is the root of the Binary Tree
+    // Return the root of the generated BST
+    Node binaryTreeToBST(Node root) {
+        return binaryTreeToBSTUtil(root);
+    }
+    
+    
+    private Node binaryTreeToBSTUtil(Node root) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        
+        // get inorder 
+        getInorder(root, res);
+        // sort 
+        Collections.sort(res);
+        // create BST
+        
+        return createBST(root, res);
+    }
+    
+    private void getInorder(Node root, ArrayList<Integer> res) {
+        if(root == null) 
+            return;
+        
+        getInorder(root.left, res);
+        res.add(root.data);
+        getInorder(root.right, res);
+    }
+    
+    private Node createBST(Node root, ArrayList<Integer> res) {
+        if(root == null) 
+            return null;
+        
+        Node left = createBST(root.left, res);
+        Node curr = new Node(res.get(index++)); 
+        Node right = createBST(root.right, res);
+        
+        curr.left = left;
+        curr.right = right;
+        
+        return curr;
+    }
+    
+}
+ 
