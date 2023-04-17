@@ -1,0 +1,46 @@
+
+/*  A Binary Tree nodea
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+class Tree
+{
+    ArrayList<Integer> noSibling(Node node) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        
+        noSiblingUtil(node, res);
+        Collections.sort(res);
+        
+        if(res.size() == 0)
+            res.add(-1);
+        
+        return res;
+    }
+    
+    private void noSiblingUtil(Node root, ArrayList<Integer> res) {
+        if(root == null) {
+            return;
+        }
+        if(root.left != null && root.right != null) {
+            noSiblingUtil(root.left, res);
+            noSiblingUtil(root.right, res);
+        }
+        else if(root.left != null) {
+            res.add(root.left.data);
+            noSiblingUtil(root.left, res);
+        }
+        else if(root.right != null) {
+            res.add(root.right.data);
+            noSiblingUtil(root.right, res);
+        }
+    }
+}
