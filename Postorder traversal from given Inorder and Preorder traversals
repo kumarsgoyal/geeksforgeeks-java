@@ -1,0 +1,29 @@
+/*prints the post order traversal of the 
+tree */
+class GfG {
+    int preIndex = 0;
+	void printPostOrder(int in[], int pre[], int n) {
+		printPostOrderUtil(in, pre, 0, n - 1);
+	}
+	
+	private void printPostOrderUtil(int[] in, int[] pre, int start,  int end) {
+        if(start > end) 
+            return;
+
+	    int inIndex = search(in, start, end, pre[preIndex++]);
+	    // left sub tree
+	    printPostOrderUtil(in, pre, start, inIndex - 1);
+	    // right sub tree
+	    printPostOrderUtil(in, pre, inIndex + 1, end);
+	    System.out.print(in[inIndex] + " ");
+	    
+	}
+	
+	private int search(int [] in, int start, int end, int data) {
+	    for(int i = start; i <= end; i++) {
+	        if(in[i] == data) 
+	            return i;
+	    }
+	    return -1;
+	}
+}
