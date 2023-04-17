@@ -1,0 +1,31 @@
+
+/*
+// A Binary Tree node
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+*/
+
+class Solution {
+    /*you are required to complete this function */
+    boolean hasPathSum(Node root, int S) {
+        return hasPathSumUtil(root, S, 0);
+    }
+    
+    private boolean hasPathSumUtil(Node root, int S, int sum) {
+        if(root == null)
+            return false;
+        if(root.left == null && root.right == null) 
+            return S == (sum + root.data);
+        
+        return hasPathSumUtil(root.left, S, sum + root.data) || hasPathSumUtil(root.right, S, sum + root.data);
+    }
+
+}
