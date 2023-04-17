@@ -1,0 +1,33 @@
+/*
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+*/
+class Solution {
+	int getLevelDiff(Node root) {
+        long[] temp = new long[1];
+        getLevelDiffUtil(root, temp, 0);
+        return (int) temp[0] ;
+	}
+	
+	private void getLevelDiffUtil(Node root, long[] temp, int level) {
+        if(root == null) 
+	        return ;
+	    
+	    if(level % 2 == 0)
+	        temp[0] = temp[0] + root.data;
+	    else 
+	        temp[0] = temp[0] - root.data;
+	    
+	    
+	    getLevelDiffUtil(root.left, temp, level + 1);
+	    getLevelDiffUtil(root.right, temp, level + 1); 
+	}
+}
