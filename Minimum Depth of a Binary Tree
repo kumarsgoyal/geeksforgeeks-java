@@ -1,0 +1,32 @@
+/*
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+*/
+
+class Solution {
+	int minDepth(Node root) {
+        return minDepthUtil(root);
+	}
+	
+	private int minDepthUtil(Node root) {
+        if(root == null) 
+	        return 0; 
+	   
+	    int lt = minDepthUtil(root.left);
+	    int rt = minDepthUtil(root.right);
+	   
+        if(root.left != null && root.right != null)  
+            return Math.min(lt, rt) + 1;
+	    else 
+	        return (root.left == null) ? rt + 1 : lt + 1;
+	}
+}
+
