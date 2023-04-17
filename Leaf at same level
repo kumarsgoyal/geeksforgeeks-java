@@ -1,0 +1,38 @@
+/* A Binary Tree node
+class Node {
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+
+class Solution {
+    boolean check(Node root) {
+        int[] temp = new int[1];
+	    return checkUtil(root, 0, temp);
+    }
+    
+    private boolean checkUtil(Node root, int level, int[] flag) {
+        if(root == null) 
+            return true;
+            
+        if(root.left == null && root.right == null) {
+            if(flag[0] == 0) { 
+                flag[0] = level;
+                return true;
+            }
+            
+            return level == flag[0];
+        }
+            
+        
+        return checkUtil(root.left, level + 1, flag) && checkUtil(root.right, level + 1, flag);
+        
+        
+    }
+}
