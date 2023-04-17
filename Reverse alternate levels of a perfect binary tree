@@ -1,0 +1,53 @@
+/*
+// A Binary Tree node
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+
+class Tree {
+	static void reverseAlternate( Node root) {  
+        reverseAlternateUtil(root);
+    }  
+    
+    private static void reverseAlternateUtil(Node root) {
+        Queue<Node> que = new LinkedList<>();
+        Stack<Integer> stack = new Stack<> ();
+        
+        que.add(root);
+        int level = 0;
+        
+        while(que.isEmpty() == false) {
+            int size = que.size();
+            
+            while(size > 0) {
+                Node temp = que.remove();
+                
+                if(temp.left != null) 
+                    que.add(temp.left);
+                if(temp.right != null) 
+                    que.add(temp.right);
+                
+                if(level % 2 == 0) {
+                    if(temp.left != null) 
+                        stack.push(temp.left.data);
+                    if(temp.right != null) 
+                        stack.push(temp.right.data);
+                }
+                else {
+                    temp.data = stack.pop();
+                }
+                size--;
+            }
+            level++;
+        }
+    }
+}
