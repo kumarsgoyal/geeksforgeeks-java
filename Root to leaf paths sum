@@ -1,0 +1,36 @@
+
+/*Complete the function below.
+Node is as follows:
+class Tree
+{
+      int data;
+      Tree left,right;
+      Tree(int d){
+          data=d;
+          left=null;
+          right=null;
+}
+}*/
+class Tree1
+{
+    private static long res;
+    
+	public static long treePathsSum(Node root) {
+	    res = 0l;
+        treePathsSumUtil(root, 0l);
+        return res;
+	}
+	
+	private static void treePathsSumUtil(Node root, long sum) {
+	    if(root == null) 
+	        return;
+	    
+	    if(root.left == null && root.right == null) {
+	        res = res + (sum * 10 + root.data);
+	        return;
+	    }
+	    
+	    treePathsSumUtil(root.left, sum * 10 + root.data);
+	    treePathsSumUtil(root.right, sum * 10 + root.data);
+	}
+}
