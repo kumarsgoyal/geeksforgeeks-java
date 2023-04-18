@@ -1,0 +1,35 @@
+/*
+class Node{
+    int data;
+    Node left,right;
+    Node(int d){
+        data=d;
+        left=right=null;
+    }
+}
+*/
+
+class Tree {
+    
+    public ArrayList<ArrayList<Integer>> Paths(Node root){
+        ArrayList<ArrayList<Integer>> res = new ArrayList<> ();
+        ArrayList<Integer> arr = new ArrayList<> ();
+        PathsUtil(root, res, arr, 0);
+        return res;
+    }
+    
+    private void PathsUtil(Node root, ArrayList<ArrayList<Integer>> res, ArrayList<Integer> arr, int index) {
+        if(root == null)  
+            return; 
+        if(root.left == null && root.right == null) {  
+            arr.add(root.data); 
+            res.add(arr);  
+            return;  
+        }  
+        
+        arr.add(root.data); 
+        PathsUtil(root.left, res,  new ArrayList<Integer>(arr), index + 1); 
+        PathsUtil(root.right, res,  new ArrayList<Integer>(arr), index + 1); 
+    }
+    
+}
