@@ -1,0 +1,36 @@
+/*
+class Node
+{
+    int data;
+    Node left;
+    Node right;
+    Node(int data)
+    {
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}
+*/
+class Solution
+{
+    // return the Kth largest element in the given BST rooted at 'root'
+    public int kthLargest(Node root,int K) {
+        int[] temp = new int[2];
+        temp[0] = 0;
+        kthLargestUtil(root, K, temp);
+        return temp[1];
+    }
+    
+    private void kthLargestUtil(Node root, int k, int[] temp) {
+        if(root == null) 
+            return;
+        
+        kthLargestUtil(root.right, k, temp);
+        temp[0] += 1;
+        if(temp[0] == k) 
+            temp[1] = root.data;
+            
+        kthLargestUtil(root.left, k, temp);
+    }
+}
