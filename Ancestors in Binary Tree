@@ -1,0 +1,43 @@
+/*class Node of the binary tree
+class Node
+{
+    int data;
+    Node left, right;
+    Node(int key)
+    {
+        data = key;
+        left = right = null;
+    }
+}*/
+
+class Solution {
+    
+    public static ArrayList<Integer> Ancestors(Node root, int target) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        AncestorsUtil(root, target, res);
+        
+        return res;
+    }
+    
+    private static boolean AncestorsUtil(Node root, int target, ArrayList<Integer> res) {
+        if(root == null) 
+            return false;
+        if(root.data == target) 
+            return true;
+        
+        
+        boolean left = AncestorsUtil(root.left, target, res); 
+        if(left == true) {
+            res.add(root.data);
+            return true;
+        }
+        
+        boolean right = AncestorsUtil(root.right, target, res);
+        if(right == true) {
+            res.add(root.data);
+            return true;
+        }
+        
+        return false;
+    }
+}
