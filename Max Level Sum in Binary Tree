@@ -1,0 +1,40 @@
+/*
+Complete the finction below
+Node is as follows
+class Node{
+    int data;
+    Node left,right;
+    Node(int d){
+        data=d;
+        left=right=null;
+    }
+}
+*/
+
+class Solution {
+    public int maxLevelSum(Node root) {
+        int max = root.data;
+        Queue<Node> que = new LinkedList<> ();
+        
+        que.add(root);
+        
+        while(que.isEmpty() == false) {
+            int size = que.size();
+            int sum = 0;
+            
+            while(size > 0) {
+                Node temp = que.remove();
+                sum += temp.data;
+                if(temp.left != null)
+                    que.add(temp.left);
+                if(temp.right != null)
+                    que.add(temp.right);
+                size--;
+            }
+            
+            max = Math.max(max, sum);
+        }
+        
+        return max;
+    }
+}
