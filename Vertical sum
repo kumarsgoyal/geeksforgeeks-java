@@ -1,0 +1,48 @@
+/*Complete the function below
+Node is as follows:
+class Node{
+int data;
+Node left, right;
+Node(int item)
+{
+    data = item;
+    left = right = null
+}
+}
+*/
+
+class Solution {
+    private int min, max;
+    
+    public ArrayList<Integer> verticalSum(Node root) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        Map<Integer, Integer> map = new HashMap<> ();
+        min = Integer.MAX_VALUE;
+        max = Integer.MIN_VALUE;
+        
+        verticalSumUtil(root, map, 0);
+        verticalSumStore(map, res);
+        return res;
+    }
+    
+    private void verticalSumUtil(Node root, Map<Integer, Integer> map, int level) {
+        if(root == null) 
+            return;
+        
+        int sum = (map.containsKey(level) == true) ?  map.get(level) + root.data : root.data;
+        map.put(level, sum);
+        
+        min = Math.min(min, level);
+        max = Math.max(max, level);
+
+        verticalSumUtil(root.left, map, level - 1);
+        verticalSumUtil(root.right, map, level + 1);
+    }
+    
+    private void verticalSumStore(Map<Integer, Integer> map, ArrayList<Integer> res) {
+        for(int i = min; i <= max; i++) {
+            res.add(map.get(i));
+        }
+    }
+    
+}
