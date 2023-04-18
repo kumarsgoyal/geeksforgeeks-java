@@ -1,0 +1,45 @@
+/*Complete the function below
+Node is as follows:
+class Node{
+	int data;
+	Node left,right;
+	
+	Node(int item)
+	{
+	    data = item;
+	    left = right = null;
+	}
+}
+*/
+
+class Tree {
+    // Return the level (0-indexed) with maximum number of nodes.
+    public static int maxNodeLevel(Node root) {
+        int max = Integer.MIN_VALUE; 
+        int level = -1, l = 0;
+        
+        Queue<Node> que = new LinkedList<> ();
+        que.add(root);
+
+        while(que.isEmpty() == false) {
+            int size = que.size();
+            
+            if(max < size) {
+                max = size;
+                level = l;
+            }
+            
+            while(size > 0) {
+                Node tNode = que.remove();
+                if(tNode.left != null)  
+                    que.add(tNode.left);
+                if(tNode.right != null) 
+                    que.add(tNode.right);
+                size--;
+            }                        
+            l++;
+        }
+        
+        return level;
+    }
+}
