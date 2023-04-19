@@ -1,0 +1,48 @@
+/*class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+ */
+
+class Solution {
+    int maxGCD(Node root) {
+        int[] res = new int[2];
+        
+        maxGCDUtil(root, res);
+        return res[1];
+    }
+    
+    private void maxGCDUtil(Node root, int[] res) {
+        if(root == null) 
+            return;
+        
+        maxGCDUtil(root.left, res);
+        
+        if(root.left != null && root.right != null) {
+            int temp = gcdUtil(root.left.data, root.right.data);
+            if(temp > res[0]) {
+                res[0] = temp;
+                res[1] = root.data;
+            }
+        }
+        
+        maxGCDUtil(root.right, res);
+    }
+    
+    private int gcdUtil(int a, int b) {
+        if( b >  a) 
+            return gcdUtil(b, a);
+            
+        if(b == 0) 
+            return a;
+        return gcdUtil(b, a % b);
+    }
+    
+}
