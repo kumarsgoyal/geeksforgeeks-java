@@ -1,0 +1,42 @@
+
+
+//User function Template for Java
+
+class Solution
+{
+    public static ArrayList <ArrayList <Integer>> binTreeSortedLevels (int arr[], int n) {
+        PriorityQueue<Integer> que = new PriorityQueue<Integer> (
+            new Comparator<Integer> () {
+                public int compare(Integer a, Integer b) {
+                    return a - b;
+                }
+            }
+        );
+        
+        ArrayList<ArrayList<Integer>> result = new ArrayList<> ();
+        
+        int size = 1;
+        int index = 0;
+        
+        while(n > 0) {
+            ArrayList<Integer> temp = new ArrayList<> ();
+            int loop = Math.min(size, n);
+            
+            while(loop > 0) {
+                que.add(arr[index++]);
+                loop--;
+            }
+            
+            while(que.isEmpty() == false) {
+                temp.add(que.poll());
+            }
+            
+            result.add(temp);
+            
+            n = n - size;
+            size = size * 2;
+        }
+        
+        return result;
+    }
+}
