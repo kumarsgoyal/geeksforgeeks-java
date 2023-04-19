@@ -17,52 +17,43 @@ class Node{
 */
 
 class Tree{
+    private Node head;
+    private Node prev;
+    
     // return the head of the DLL and remove those node from the tree as well.
-    Node head = null;
-    Node prev = null;
-
+    public Node convertToDLL(Node root) {
+        head = prev = null;
+        convertToDLLUtil(root);
+        
+        return head;
+    }
+    
     private boolean convertToDLLUtil(Node root) {
-         if(root == null) {
+        if(root == null) 
             return false;
-        }
-
-        Node left = root.left;
-        Node right = root.right;
-
-        boolean lNode = convertToDLLUtil(left);
-
-        if(left == null && right == null) {
-
+            
+        if(root.left == null && root.right == null) {
+            
             if(prev == null) {
                 head = root;
-            }
-            else {
+            }else {
                 prev.right = root;
+                root.left = prev;
             }
-
-            root.left = prev;
-            root.right = null;
+            
             prev = root;
             return true;
         }
-
-        boolean rNode = convertToDLLUtil(right);
-
-        if(lNode == true) {
+        
+        boolean left = convertToDLLUtil(root.left);
+        boolean right = convertToDLLUtil(root.right);
+        
+        if(left == true) 
             root.left = null;
-        }
-
-        if(rNode == true) {
+        if(right == true)
             root.right = null;
-        }
-
+        
         return false;
     }
-
-    public Node convertToDLL(Node root) {
-       convertToDLLUtil(root);
-
-       return head;
-    }
-
+    
 }
