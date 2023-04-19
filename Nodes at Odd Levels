@@ -1,0 +1,49 @@
+/*
+class Node {
+    int data;
+    Node left, right;
+    
+    public Node(int data){
+        this.data = data;
+    }
+}
+*/
+
+class Solution {
+    public ArrayList<Node> nodesAtOddLevels(Node root) {
+        ArrayList<Node> res = new ArrayList<> ();
+        nodesAtOddLevelsUtil(root, res);
+        return res;
+    }
+    
+    private void nodesAtOddLevelsUtil(Node root, ArrayList<Node> res) {
+        if(root == null) 
+            return;
+        
+        Queue<Node> que = new LinkedList<> ();
+        int level = 1;
+        
+        que.add(root);
+        
+        while(que.isEmpty() == false) {
+            int size = que.size();
+            
+            while(size > 0) {
+                Node temp = que.remove();
+                
+                if(level % 2 == 1) 
+                    res.add(temp);
+                
+                if(temp.left != null)
+                    que.add(temp.left);
+                if(temp.right != null)
+                    que.add(temp.right);
+                size--;
+            }
+            
+            level++;
+        }
+       
+    }
+    
+}
