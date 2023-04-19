@@ -1,0 +1,39 @@
+class Solution {
+    class Node {
+        int data;
+        Node left;
+        Node right;
+        public Node(int data) {
+            this.data = data;
+            this.left = this.right = null;
+        }
+    }
+    
+    public int[] sortedArrayToBST(int[] nums) {
+        Node root = sortedArrayToBSTUtil(nums, 0, nums.length - 1);
+        int[] index = new int[] {0};
+        preOrder(root, nums, index);
+        return nums;
+    }
+    
+    private Node sortedArrayToBSTUtil(int[] nums, int start, int end) {
+        if(start > end) 
+            return null;
+        
+        int mid = start + (end - start) / 2;
+        Node root = new Node(nums[mid]);
+        root.left = sortedArrayToBSTUtil(nums, start, mid - 1);
+        root.right = sortedArrayToBSTUtil(nums, mid + 1, end);
+        
+        return root;
+    }
+    
+    private void preOrder(Node root, int[] nums, int[] index) {
+        if(root == null)
+            return;
+        
+        nums[index[0]++] = root.data;
+        preOrder(root.left, nums, index);
+        preOrder(root.right, nums, index);
+    }
+}
