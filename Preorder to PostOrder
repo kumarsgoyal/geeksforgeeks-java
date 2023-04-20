@@ -1,0 +1,63 @@
+
+    private static int index;
+    
+    //Function that constructs BST from its preorder traversal.
+    public static Node post_order(int pre[], int size) {
+        index = 0;
+        return postOrderUtil(pre, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    } 
+    
+    private static Node postOrderUtil(int[] pre, int min, int max) {
+        if(index == pre.length) 
+            return null;
+            
+        if(pre[index] < min || pre[index] > max) {
+            return null;
+        }
+        
+        Node root = new Node(pre[index]);
+        index++;
+        
+        root.left = postOrderUtil(pre, min, root.data);
+        root.right = postOrderUtil(pre, root.data, max);
+        
+        return root;
+    }
+
+
+
+/*
+  
+    private static int index;
+    
+    //Function that constructs BST from its preorder traversal.
+    public static Node post_order(int pre[], int size) {
+        index = 0;
+        return postOrderUtil(pre, 0, size - 1);
+    } 
+    
+    private static Node postOrderUtil(int[] pre, int start, int end) {
+        if(start > end) {
+            return null;
+        }
+        
+        Node root = new Node(pre[index]);
+        int ind = search(pre, index);
+        index++;
+        
+        root.left = postOrderUtil(pre, start + 1, ind - 1);
+        root.right = postOrderUtil(pre, ind, end);
+        
+        return root;
+    }
+    
+    private static int search(int[] pre, int index) {
+        int i = index  + 1;
+        for( ; i < pre.length; i++) {
+            if(pre[i] > pre[index]) 
+                return i;
+        }
+        return i;
+    }
+    
+    */
