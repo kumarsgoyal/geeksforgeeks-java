@@ -1,0 +1,34 @@
+
+/* A Binary Tree node 
+class Node {
+    int data;
+    Node left, right;
+   Node(int item)    {
+        data = item;
+        left = right = null;
+    }
+} */
+
+class Tree {
+    // Return a list containing the Preorder traversal of the given tree
+    ArrayList<Integer> preOrder(Node root) {
+         ArrayList<Integer> res = new ArrayList<> ();
+        Stack<Node> stack = new Stack<> ();
+        
+        Node curr = root;
+        
+        while(stack.isEmpty() == false || curr != null) {
+            while(curr != null) {
+                stack.push(curr);
+                res.add(curr.data);
+                curr = curr.left;
+            }
+            
+            curr = stack.pop();
+            curr = curr.right;
+        }
+        
+        return res;
+    }
+    
+}
