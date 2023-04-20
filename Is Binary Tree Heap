@@ -1,0 +1,38 @@
+class Solution {
+    
+    boolean isHeap(Node tree) {
+        return isHeapUtil(tree);
+    }
+    
+    boolean isHeapUtil(Node tree) {
+        Queue<Node> que = new LinkedList<> ();
+        boolean isChild = false;
+        que.add(tree);
+       
+        while(que.isEmpty() == false) {
+            Node temp = que.remove();
+	        
+            if(temp.left != null) {
+	            if(isChild == true || temp.data <= temp.left.data) {
+	                return false;
+	            }
+	            que.add(temp.left);
+	        }
+	        else {
+	            isChild = true;
+	        }
+	        
+	        if(temp.right != null) {
+	            if(isChild == true || temp.data <= temp.right.data) {
+	                return false;
+	            }
+	            que.add(temp.right);
+	        }
+	        else {
+	            isChild = true;
+	        }
+        }
+        
+        return true;
+    }
+}
