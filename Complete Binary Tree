@@ -1,0 +1,51 @@
+/*Complete the function below
+Node is as follows:
+class Node{
+	int data;
+	Node left,right;
+	Node(int d){
+		data=d;
+		left=right=null;
+	}
+}
+*/
+class GfG
+{
+	boolean isCompleteBT(Node root) {
+        return isCompleteBTUtil(root);
+	} 
+	
+	private boolean isCompleteBTUtil(Node root) {
+	    Queue<Node> que = new LinkedList<Node> ();
+	    boolean isChild = false;
+	    
+	    que.add(root);
+	   
+	    while(que.isEmpty() == false) {
+	        Node temp = que.poll();
+	        
+	        if(temp.left != null) {
+	            if(isChild == true) {
+	                return false;
+	            }
+	            que.add(temp.left);
+	        }
+	        else {
+	            isChild = true;
+	        }
+	        
+	        if(temp.right != null) {
+	            if(isChild == true) {
+	                return false;
+	            }
+	            que.add(temp.right);
+	        }
+	        else {
+	            isChild = true;
+	        }
+	    }
+	    
+	    
+	    return true;
+	}
+}
