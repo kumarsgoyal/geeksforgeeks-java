@@ -1,0 +1,42 @@
+
+/*node class of the binary tree
+class Node
+{
+    int data;
+    Node left, right;
+    Node(int key)
+    {
+        data = key;
+        left = right = null;
+    }
+}*/
+
+class Solution {
+    //Function to construct binary tree from parent array.
+    public static Node createTree(int parent[], int N) {
+        Node[] res = new Node[N];
+        Node result = null;
+        
+        for(int i = 0; i < N; i++) {
+            Node temp = new Node(i);
+            res[i] = temp;
+        }
+        
+        for(int i = 0; i < N; i++) {
+            if(parent[i] != -1) {
+                if(res[parent[i]].left == null) {
+                    res[parent[i]].left = res[i];
+                }
+                else {
+                    res[parent[i]].right = res[i];
+                }
+            }
+            else {
+                result = res[i];
+            }
+        }
+        
+        return result;
+    }
+    
+}
