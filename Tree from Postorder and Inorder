@@ -1,0 +1,95 @@
+/* Tree node structure
+class Node
+{
+    int data;
+    Node left;
+    Node right;
+
+        Node(int value)
+    {
+        data = value;
+        left = null;
+        right = null;
+    }
+}*/
+
+
+class GfG
+{
+    private int postIndex;
+    //Function to return a tree created from postorder and inoreder traversals.
+    Node buildTree(int in[], int post[], int n) {
+        postIndex = n - 1;
+        Map<Integer, Integer> map = new HashMap<> ();
+        for(int i = 0; i < n; i++) 
+            map.put(in[i], i);
+        
+        return buildTreeUtil(in, post, 0, n - 1, map);
+    }
+    
+    private Node buildTreeUtil(int[] in, int[] post, int start, int end, Map<Integer, Integer> map) {
+        
+        if(start > end) {
+            return null;
+        }
+        
+        Node root = new Node(post[postIndex--]);
+        
+        if(start == end) {
+            return root;
+        }
+        
+        int index = map.get(root.data);
+        root.right = buildTreeUtil(in, post, index + 1, end, map);
+        root.left = buildTreeUtil(in, post, start, index - 1, map);
+        
+        return root;
+    }
+
+}
+
+
+
+
+/*
+
+class GfG {
+    private int postIndex;
+    //Function to return a tree created from postorder and inoreder traversals.
+    Node buildTree(int in[], int post[], int n) {
+        postIndex = n - 1;
+        return buildTreeUtil(in, post, 0, n - 1);
+    }
+    
+    private Node buildTreeUtil(int[] in, int[] post, int start, int end) {
+        
+        if(start > end) {
+            return null;
+        }
+        
+        Node root = new Node(post[postIndex--]);
+        
+        if(start == end) {
+            return root;
+        }
+        
+        int index = search(in, root.data, start, end);
+        root.right = buildTreeUtil(in, post, index + 1, end);
+        root.left = buildTreeUtil(in, post, start, index - 1);
+        
+        return root;
+    }
+    
+    private int search(int[] in, int data, int start, int end) {
+        int i = start;
+        for( ; i < end; i++) {
+            if(in[i] == data) {
+                return i;
+            }
+        }
+        
+        return i;
+    }
+}
+
+*/
