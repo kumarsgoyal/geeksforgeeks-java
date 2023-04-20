@@ -1,0 +1,32 @@
+/*class Node {
+    int data;
+    Node left;
+    Node right;
+    Node(int data) {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}*/
+
+class Solution {
+    // Function to return the diameter of a Binary Tree.
+    int diameter(Node root) {
+        int[] res = new int[] {0};
+        diameterUtil(root, res);
+        
+        return res[0];
+    }
+    
+    private int diameterUtil(Node root, int[] res) {
+        if(root == null) 
+            return 0;
+        
+        int left = diameterUtil(root.left, res);
+        int right = diameterUtil(root.right, res);
+        
+        res[0] = Math.max(res[0], left + right + 1);
+        
+        return Math.max(left, right) + 1;
+    }
+}
