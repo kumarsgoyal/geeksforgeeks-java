@@ -1,0 +1,49 @@
+
+class Solution {
+    
+    class NodeInfo {
+        int dis;
+        Node node;
+        NodeInfo(Node node, int dis) {
+            this.dis = dis;
+            this.node = node;
+        }
+    }
+    
+    //Function to return a list containing the bottom view of the given tree.
+    public ArrayList <Integer> bottomView(Node root) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        
+        bottomViewUtil(root, res);
+        return res;
+    }
+    
+    private void bottomViewUtil(Node root, ArrayList<Integer> res) {
+        Queue<NodeInfo> que = new LinkedList<> ();
+        int[] width = new int[] {Integer.MAX_VALUE, Integer.MIN_VALUE};
+        Map<Integer, Integer> map = new HashMap<> ();
+        
+        que.add(new NodeInfo(root, 0));
+        
+        while(que.isEmpty() == false) {
+            NodeInfo temp = que.remove();
+            
+            map.put(temp.dis, temp.node.data);
+            
+            width[0] = Math.min(width[0], temp.dis);
+            width[1] = Math.max(width[1], temp.dis);
+            
+            if(temp.node.left != null) 
+                que.add(new NodeInfo(temp.node.left, temp.dis - 1));
+            if(temp.node.right != null) 
+                que.add(new NodeInfo(temp.node.right, temp.dis + 1));
+        }
+        
+        
+        for(int i = width[0]; i <= width[1]; i++) {
+            res.add(map.get(i));
+        }
+        
+    }
+    
+}
