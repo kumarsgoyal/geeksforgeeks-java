@@ -1,0 +1,41 @@
+
+/* A Binary Tree node
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+class Solution
+{
+	boolean isSumTree(Node root) {
+	    return (isSumTreeUtil(root) == -1) ? false : true;
+	}
+	
+	private int isSumTreeUtil(Node root) {
+	    if(root == null) 
+	        return 0;
+	        
+        if(root.left == null && root.right == null) 
+            return root.data;
+            
+        int left = isSumTreeUtil(root.left);
+        int right = isSumTreeUtil(root.right);
+    
+        
+        if(left == -1 || right == -1) {
+            return -1;
+        }
+        if(root.data != (left + right)) {
+            return -1;
+        }
+        
+        return root.data + left+ right;
+	}
+}
