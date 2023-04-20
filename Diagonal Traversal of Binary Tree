@@ -1,0 +1,45 @@
+/* Node is defined as
+class Node{
+    int data;
+    Node left;
+    Node right;
+    Node(int data){
+        this.data = data;
+        left=null;
+        right=null;
+    }
+}*/
+
+class Tree {
+    public ArrayList<Integer> diagonal(Node root) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        diagonalUtil(root, res);
+        return res;
+    }
+    
+    private void diagonalUtil(Node root, ArrayList<Integer> res) {
+        if(root == null) 
+            return;
+        
+        Queue<Node> que = new LinkedList<> ();
+        
+        while(root != null) {
+            res.add(root.data);
+            if(root.left != null) {
+                que.add(root.left);
+            }
+            if(root.right != null) {
+                root = root.right;
+            }
+            else {
+                if(que.isEmpty() == false) {
+                    root = que.remove();
+                }
+                else {
+                    root = null;
+                }
+            }
+        }
+        
+    }
+}
