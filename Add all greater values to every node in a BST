@@ -1,0 +1,35 @@
+// class Node  
+// { 
+//     int data; 
+//     Node left, right; 
+   
+//     public Node(int d)  
+//     { 
+//         data = d; 
+//         left = right = null; 
+//     } 
+// }
+
+
+class Solution{
+    
+    private int sum;
+    
+    // modify the BST and return its root
+    public Node modify(Node root) {
+        sum = 0;
+        modifyUtil(root);
+        return root;
+    }
+    
+    private void modifyUtil(Node root) {
+        if(root == null) 
+            return;
+            
+        modifyUtil(root.right);
+        root.data = sum + root.data;
+        sum = root.data;
+        modifyUtil(root.left);
+    }
+    
+}
