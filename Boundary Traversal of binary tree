@@ -1,0 +1,63 @@
+// class Node  
+// { 
+//     int data; 
+//     Node left, right; 
+   
+//     public Node(int d)  
+//     { 
+//         data = d; 
+//         left = right = null; 
+//     } 
+// }
+
+class Solution {
+	ArrayList <Integer> boundary(Node node) {
+	    ArrayList<Integer> res = new ArrayList<> ();
+	    
+	    res.add(node.data);
+	    
+	    leftBoundary(node.left, res);
+	    bottomBoundary(node.left, res);
+	    bottomBoundary(node.right, res);
+	    rightBoundary(node.right, res);
+	    
+	    return res;
+	}
+	
+	private void leftBoundary(Node root, ArrayList<Integer> res) {
+	    if(root == null)
+            return;
+            
+        if(root.left != null || root.right != null)  
+            res.add(root.data); 
+        if(root.left != null)  
+            leftBoundary(root.left, res); 
+        else 
+            leftBoundary(root.right, res); 
+	}
+	
+	private void bottomBoundary(Node root, ArrayList<Integer> res) { 
+        if(root == null)  
+	        return; 
+	    
+	    bottomBoundary(root.left, res); 
+	    
+	    if(root.left == null && root.right == null) 
+	        res.add(root.data); 
+	        
+	    bottomBoundary(root.right, res); 
+	}
+	
+	private void rightBoundary(Node root, ArrayList<Integer> res) { 
+	    if(root == null) 
+	        return; 
+	        
+        if(root.right != null)  
+            rightBoundary(root.right, res); 
+        else  
+            rightBoundary(root.left, res); 
+             
+        if(root.left != null || root.right != null)  
+            res.add(root.data); 
+	}
+}
