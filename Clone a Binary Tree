@@ -1,0 +1,48 @@
+/*Complete the function below
+Node is as follows:
+class Tree{
+	int data;
+	Tree left,right,random;
+	Tree(int d){
+		data=d;
+		left=null;
+		right=null;
+		random=null;
+	}
+}*/
+
+class Solution {
+    
+    public Tree cloneTree(Tree tree) {
+        Map<Tree, Tree> map = new HashMap<> ();
+        
+        Tree clone = createCloneTree(tree, map);
+        copyRandomPointer(tree, clone, map);
+        
+        return clone;
+    }
+    
+    private Tree createCloneTree(Tree tree, Map<Tree, Tree> map) {
+        if(tree == null) 
+            return null;
+        
+        Tree root = new Tree(tree.data);
+        map.put(tree, root);
+        root.left = createCloneTree(tree.left, map);
+        root.right = createCloneTree(tree.right, map);
+        
+        return root;
+    }
+    
+    private void copyRandomPointer(Tree tree, Tree clone, Map<Tree, Tree> map) {
+        if(tree == null)
+            return;
+        
+        if(tree.random != null)
+            clone.random = map.get(tree.random);
+        
+        copyRandomPointer(tree.left, clone.left, map);
+        copyRandomPointer(tree.right, clone.right, map);
+    }
+    
+}
