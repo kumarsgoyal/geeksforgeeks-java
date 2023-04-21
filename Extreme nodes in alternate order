@@ -1,0 +1,47 @@
+/*Complete The given function
+The Node class is as follows:
+class Node{
+    int data;
+    Node left,right;
+    
+    Node(int d)
+     {
+      data=d;
+      left=null;
+      right=null;
+    }
+}*/
+class Solution{
+    public  ArrayList<Integer> ExtremeNode(Node root) {
+        Queue<Node> que = new LinkedList<> ();
+        ArrayList<Integer> res = new ArrayList<> ();
+        
+        que.add(root);
+        boolean flag = false;
+        
+        while(que.isEmpty() == false) {
+            int size = que.size();
+            int num = -1;
+            
+            while(size > 0) {
+                Node temp = que.remove();
+                
+                if(flag == true && num == -1)
+                    num = temp.data;
+                if(flag == false) 
+                    num = temp.data;
+                
+                if(temp.left != null)
+                    que.add(temp.left);
+                if(temp.right != null)
+                    que.add(temp.right);
+                size--;
+            }
+            
+            flag = !flag;
+            res.add(num);
+        }
+        
+        return res;
+    }
+}
