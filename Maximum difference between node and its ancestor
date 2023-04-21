@@ -1,0 +1,36 @@
+
+/*
+class Node
+{
+    int data;
+    Node left, right;
+    
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+
+class Tree {
+    //Function to return the maximum difference between any 
+    //node and its ancestor.
+    int maxDiff(Node root) {
+        int[] temp = new int[] {Integer.MIN_VALUE};
+        maxDiffUtil(root.left, root.data, temp);
+        maxDiffUtil(root.right, root.data, temp);
+        
+        return temp[0];
+    }
+    
+    private void maxDiffUtil(Node root, int max, int[] temp) {
+        if(root == null) 
+            return ;
+            
+        temp[0] = Math.max((max - root.data), temp[0]);
+         
+        maxDiffUtil(root.left, Math.max(root.data, max), temp);
+        maxDiffUtil(root.right, Math.max(root.data, max), temp);
+    }
+}
