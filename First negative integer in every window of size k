@@ -1,0 +1,29 @@
+
+
+//User function Template for Java
+
+
+class Compute {
+
+    public long[] printFirstNegativeInteger(long A[], int N, int k) {
+        long[] result = new long[N - k + 1];
+        int index = 0;
+        int start = 0, end = k - 1;
+
+        while(end < N) {
+            while(start < end && (start <= (end - k) || A[start] >= 0)) {
+                start++;
+            }
+
+            if(A[start] < 0) {
+                result[index++] = A[start];
+            }
+            else {
+                result[index++] = 0;
+            }
+            end++;
+        }
+
+        return result;
+    }
+}
