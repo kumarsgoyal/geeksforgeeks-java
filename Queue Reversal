@@ -1,0 +1,20 @@
+
+
+//User function Template for Java
+/*Complete the function below*/
+class GfG{
+    //Function to reverse the queue.
+    public Queue<Integer> rev(Queue<Integer> que){
+        Stack<Integer> stack = new Stack<Integer> ();
+
+        while(que.isEmpty() == false) {
+            stack.push(que.poll());
+        }
+
+        while(stack.isEmpty() == false) {
+            que.add(stack.pop());
+        }
+
+        return que;
+    }
+}
