@@ -1,0 +1,67 @@
+
+
+class Solution
+{
+    class Node {
+        int i;
+        int j;
+        int count;
+        public Node(int i, int j, int count) {
+            this.i = i;
+            this.j = j;
+            this.count = count;
+        }
+    }
+
+    private int n, m, c, fc;
+
+    //Function to find minimum time required to rot all oranges.
+    public int orangesRotting(int[][] grid) {
+        n = grid.length;
+        m = grid[0].length;
+        return orangesRottingUtil(grid);
+    }
+
+    private int orangesRottingUtil(int[][] grid) {
+
+        int rotten = 2, fresh = 1;
+        Queue<Node> que = new LinkedList<Node> ();
+        boolean visited[][] = new boolean[n][m];
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(grid[i][j] == rotten) {
+                    visited[i][j] = true;
+                    que.add(new Node(i, j, 0));
+                }
+                else if(grid[i][j] == fresh) {
+                    fc++;
+                }
+            }
+        }
+
+        int result = 0;
+
+        while(que.isEmpty() == false) {
+            Node temp = que.poll();
+           // System.out.println(temp.i + ",  " + temp.j + ",  " + temp.count);
+            result = (temp.count >  result) ? temp.count : result;
+            // add adj node
+            addNode(grid, que, visited, temp.i + 1, temp.j, temp.count + 1);
+            addNode(grid, que, visited, temp.i - 1, temp.j, temp.count + 1);
+            addNode(grid, que, visited, temp.i, temp.j + 1, temp.count + 1);
+            addNode(grid, que, visited, temp.i, temp.j - 1, temp.count + 1);
+
+        }
+
+        return (fc != c) ? -1 : result;
+    }
+
+    private void addNode(int[][] grid, Queue<Node> que, boolean[][] visited, int i, int j, int count) {
+        if((i >= 0 && i < n) && (j >= 0 && j < m) && visited[i][j] == false && grid[i][j] == 1) {
+            visited[i][j] = true;
+            c++;
+            que.add(new Node(i, j, count));
+        }
+    }
+}
