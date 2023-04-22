@@ -1,0 +1,29 @@
+//User function Template for Java
+
+// Helper class Geeks to implement
+// insert() and findFrequency()
+class Geeks{
+
+    // Function to insert element into the queue
+    static void insert(Queue<Integer> que, int k){
+        que.add(k);
+    }
+
+    // Function to find frequency of an element
+    // rteturn the frequency of k
+    static int findFrequency(Queue<Integer> que, int k){
+        int size = que.size();
+        int count = 0;
+
+        while(size > 0) {
+            if(que.peek() == k) {
+                count++;
+            }
+            que.add(que.poll());
+            size--;
+        }
+
+        return count;
+    }
+
+}
