@@ -1,0 +1,33 @@
+
+
+class Solution
+{
+    public String FirstNonRepeating(String A)
+    {
+        StringBuilder str = new StringBuilder();
+        int[] freq = new int[27];
+        Queue<Character> que = new LinkedList<Character> ();
+
+        for(int i = 0; i < A.length(); i++) {
+            freq[A.charAt(i) - 'a']++;
+
+            if(freq[A.charAt(i) - 'a'] == 1) {
+                que.add(A.charAt(i));
+            }
+
+            while(que.isEmpty() == false && freq[que.peek() - 'a'] > 1) {
+                que.remove();
+            }
+
+            if(que.isEmpty() == false) {
+                str.append(que.peek());
+            }
+            else {
+                str.append('#');
+            }
+        }
+
+
+        return str.toString();
+    }
+}
