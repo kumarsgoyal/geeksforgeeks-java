@@ -1,0 +1,26 @@
+
+
+class GfG
+{
+    public static Node partition(Node l, Node h)
+    {
+        Node temp = l;
+        int pivot = h.data;
+
+        while(temp != h) {
+            if(temp.data < pivot) {
+                int dum = l.data;
+                l.data = temp.data;
+                temp.data = dum;
+                l = l.next;
+            }
+            temp = temp.next;
+        }
+
+        int dum = l.data;
+        l.data = h.data;
+        h.data = dum;
+
+        return l;
+    }
+}
