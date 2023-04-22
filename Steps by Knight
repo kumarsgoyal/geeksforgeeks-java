@@ -1,0 +1,60 @@
+
+
+class Solution
+{
+    class Node {
+        int i;
+        int j;
+        int dis;
+
+        public Node(int i, int j, int dis) {
+            this.i = i;
+            this.j = j;
+            this.dis = dis;
+        }
+    }
+
+    //Function to find out minimum steps Knight needs to reach target position.
+    public int minStepToReachTarget(int KnightPos[], int TargetPos[], int N) {
+        return minStepToReachTargetUtil(KnightPos, TargetPos, N);
+    }
+
+    private int minStepToReachTargetUtil(int knightPos[], int targetPos[], int N) {
+
+        int dx[] = { -2, -2, 2, 2, -1, -1, 1, 1 };
+        int dy[] = { -1, 1, -1, 1, -2, 2, -2, 2};
+
+        boolean visited[][] = new boolean[N + 1][N + 1];
+        Queue<Node> que = new LinkedList<Node> ();
+
+        que.add(new Node(knightPos[0], knightPos[1], 0));
+        visited[knightPos[0]][knightPos[1]] = true;
+
+        while(que.isEmpty() == false) {
+            Node temp = que.poll();
+
+            if(temp.i == targetPos[0] && temp.j == targetPos[1]) {
+                return temp.dis;
+            }
+
+            for(int i = 0; i < dx.length; i++) {
+                int x = dx[i] + temp.i;
+                int y = dy[i] + temp.j;
+
+                if(inside(x, y, N) && visited[x][y] == false) {
+                    visited[x][y] = true;
+                    que.add(new Node(x, y, temp.dis + 1));
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    private boolean inside(int i, int j, int N) {
+        if(i > 0 && i <= N && j > 0 && j <= N) {
+            return true;
+        }
+        return false;
+    }
+}
