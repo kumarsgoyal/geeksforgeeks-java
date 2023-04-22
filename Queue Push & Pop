@@ -1,0 +1,21 @@
+
+
+//User function Template for Java
+
+class Solution{
+
+    public Queue<Integer> push(int arr[], int n) {
+        Queue<Integer> que = new LinkedList<> ();
+        for(int i : arr) {
+            que.add(i);
+        }
+
+        return que;
+    }
+
+    public void _pop(Queue<Integer> q) {
+        while(q.isEmpty() == false) {
+            System.out.print(q.poll() + " ");
+        }
+    }
+}
