@@ -1,0 +1,27 @@
+
+
+// User function Template for Java
+
+class GfG {
+    // Function to reverse first k elements of a queue.
+    public Queue<Integer> modifyQueue(Queue<Integer> que, int k) {
+        Stack<Integer> stack = new Stack<Integer> ();
+        int size = que.size() - k;
+
+        while(k > 0) {
+            stack.add(que.poll());
+            k--;
+        }
+
+        while(stack.empty() == false) {
+            que.add(stack.pop());
+        }
+
+        while(size > 0) {
+            que.add(que.poll());
+            size--;
+        }
+
+        return que;
+    }
+}
