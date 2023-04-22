@@ -1,0 +1,49 @@
+// This question is not available in java language
+
+/*
+Structure of linked list is as
+struct Node
+{
+    int data;
+    struct Node* npx;
+
+    Node(int x){
+        data = x;
+        npx = NULL;
+    }
+};
+
+Utility function to get XOR of two Struct Node pointer
+use this function to get XOR of two pointers
+struct Node* XOR (struct Node *a, struct Node *b)
+{
+    return (struct Node*) ((uintptr_t) (a) ^ (uintptr_t) (b));
+}
+*/
+
+// function should insert the data to the front of the list
+struct Node *insert(struct Node *head, int data) {
+    struct Node* temp = new Node(data);
+    temp->npx = head;
+
+    if(head != NULL) {
+        head->npx = XOR(temp, head->npx);
+    }
+
+    return temp;
+}
+
+vector<int> printList(struct Node *head) {
+    struct Node* temp = head;
+    Node *prev = NULL;
+    vector<int> vlist;
+
+    while(temp != NULL) {
+        vlist.push_back(temp->data);
+        Node *t = temp;
+        temp = XOR(temp->npx, prev);
+        prev = t;
+    }
+
+    return vlist;
+}
