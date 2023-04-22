@@ -1,0 +1,48 @@
+
+
+//User function template for JAVA
+
+class Solution
+{
+    static class Node {
+        int index;
+        int val;
+        public Node(int index, int val) {
+            this.index = index;
+            this.val = val;
+        }
+    }
+
+    //Function to find maximum of each subarray of size k.
+    static ArrayList <Integer> max_of_subarrays(int arr[], int n, int k) {
+        ArrayList<Integer> result = new ArrayList<Integer> ();
+        Deque<Integer> que = new LinkedList<Integer>();
+
+        for(int i = 0; i < k; i++) {
+            while(que.isEmpty() == false && arr[que.peekLast()] <= arr[i]) {
+                que.removeLast();
+            }
+            que.addLast(i);
+        }
+
+
+        for(int i = k; i < n; i++) {
+            result.add(arr[que.peek()]);
+
+            while(que.isEmpty() == false && que.peek() <= i- k) {
+                que.removeFirst();
+            }
+
+            while(que.isEmpty() == false && arr[que.peekLast()] <= arr[i]) {
+                que.removeLast();
+            }
+
+            que.addLast(i);
+
+        }
+
+        result.add(arr[que.peek()]);
+
+        return result;
+    }
+}
