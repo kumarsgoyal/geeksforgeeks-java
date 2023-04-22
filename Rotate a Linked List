@@ -1,0 +1,48 @@
+
+
+/* node of linked list:
+
+class Node{
+    int data;
+    Node next;
+    Node(int d){
+        data=d;
+        next=null;
+    }
+}
+
+*/
+
+class Solution{
+    //Function to rotate a linked list.
+    public Node rotate(Node head, int k) {
+        return getNewHead(head, k);
+    }
+
+    private Node getNewHead(Node head, int k) {
+        Node curr = head;
+        Node prev = null;
+
+        while(curr != null && k > 0) {
+            prev = curr;
+            curr = curr.next;
+            k--;
+        }
+
+        if(curr == null) {
+            return head;
+        }
+
+        prev.next = null;
+
+        Node newHead = curr;
+
+        while(curr != null) {
+            prev = curr;
+            curr = curr.next;
+        }
+
+        prev.next = head;
+        return newHead;
+    }
+}
