@@ -1,0 +1,58 @@
+
+
+/*node class of the linked list
+
+class Node
+{
+    int data;
+    Node next;
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}
+
+*/
+
+class Solution
+{
+    public static Node reverse(Node head, int k)
+    {
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        Node curr = head;
+        Node prev = null;
+        int n = k;
+
+        while(curr != null && n > 0) {
+            prev = curr;
+            curr = curr.next;
+            n--;
+        }
+        prev.next = null;
+
+        Node newHead = reverseUtil(head);
+
+        head.next = reverse(curr, k);
+
+        return newHead;
+    }
+
+    private static Node reverseUtil(Node head) {
+        Node next = null;
+        Node prev = null;
+        Node curr = head;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+}
