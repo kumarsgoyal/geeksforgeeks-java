@@ -1,0 +1,43 @@
+
+
+//User function Template for Java
+
+/* Linked List Node class
+
+class Node
+{
+    int data;
+    Node next;
+}
+
+*/
+
+class Solution
+{
+    public static Node removeAllDuplicates(Node head) {
+        Node result = new Node(-1);
+        Node ptr = result;
+
+        Node curr = head;
+
+        while(curr != null) {
+
+            if(curr.next != null && curr.data == curr.next.data) {
+                Node temp = curr.next;
+                while(temp != null && curr.data == temp.data) {
+                    temp = temp.next;
+                }
+                curr = temp;
+            }
+            else {
+                ptr.next = curr;
+                ptr = ptr.next;
+                curr = curr.next;
+            }
+        }
+
+        ptr.next = null;
+
+        return result.next;
+    }
+}
