@@ -1,0 +1,46 @@
+
+
+//User function Template for Java
+
+class Solution{
+    static long minSum(int a[], int n, int k){
+        PriorityQueue<Float> que = new PriorityQueue<Float> (
+            new Comparator<Float> () {
+                public int compare(Float a, Float b) {
+                    return Float.compare(b, a);
+                }
+            }
+        );
+
+        for(int i = 0; i < a.length; i++) {
+            que.add((float) a[i]);
+        }
+
+        while(n > 0) {
+            Float temp = que.poll();
+
+            if(temp < k) {
+                temp = 0f;
+            }
+            else {
+                Float p = 0.1f * temp;
+                if(p > k) {
+                    temp = temp - p;
+                }
+                else {
+                    temp = temp - k;
+                }
+            }
+            que.add(temp);
+            n--;
+        }
+
+        Float sum = 0f;
+
+        while(que.isEmpty() == false) {
+            sum += que.poll();
+        }
+
+        return  Math.round(Math.floor(sum));
+    }
+}
