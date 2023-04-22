@@ -1,0 +1,36 @@
+
+
+/* The structure of linked list is the following
+class Node
+{
+    int data;
+    Node next;
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+*/
+
+class Solution
+{
+    //Function to remove duplicates from unsorted linked list.
+    public Node removeDuplicates(Node head) {
+        Set<Integer> set = new HashSet<> ();
+        Node result = new Node(0);
+        Node curr = result;
+
+        while(head != null) {
+            if(set.contains(head.data) != true) {
+                set.add(head.data);
+                curr.next = head;
+                curr = curr.next;
+            }
+            head = head.next;
+        }
+
+        curr.next = null;
+
+        return result.next;
+    }
+}
