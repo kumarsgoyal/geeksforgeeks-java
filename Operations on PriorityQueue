@@ -1,0 +1,35 @@
+//User function Template for Java
+
+// Helper class Geeks to implement
+// insert() and findFrequency()
+class Geeks{
+
+    // Function to insert element into the queue
+    static void insert(PriorityQueue<Integer> que, int k){
+        //Just insert k in q and don't return anything
+        que.add(k);
+    }
+
+    // Function to find an element k
+    static boolean find(PriorityQueue<Integer> que, int k){
+        // If k is in q return true else return false
+        Iterator value = que.iterator();
+
+        while(value.hasNext()) {
+            if((Integer)value.next() == k) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Function to delete the max element from queue
+    static int delete(PriorityQueue<Integer> que){
+        //Delete the max element from q. The priority queue property might be useful here
+        if(que.isEmpty() == true) {
+            return -1;
+        }
+        return que.poll();
+    }
+
+}
