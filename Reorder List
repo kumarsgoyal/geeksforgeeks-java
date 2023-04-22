@@ -1,0 +1,80 @@
+
+
+/* Following is the Linked list node structure */
+
+/*class Node
+{
+    int data;
+    Node next;
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}*/
+
+class Solution {
+
+    Node reverse(Node head) {
+        Node next = null, prev = null, curr = head;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    Node merge(Node head1, Node head2) {
+        Node result = new Node(-1);
+        Node ptr = result;
+
+        while(head1 != null && head2 != null) {
+            ptr.next = head1;
+            head1 = head1.next;
+            ptr = ptr.next;
+
+            ptr.next = head2;
+            head2 = head2.next;
+            ptr = ptr.next;
+        }
+
+        if(head1 != null) {
+            ptr.next = head1;
+            head1 = head1.next;
+            ptr = ptr.next;
+        }
+
+        return result.next;
+
+    }
+
+    void reorderlist(Node head) {
+        if(head == null || head.next == null) {
+            return ;
+        }
+
+        Node slow = head;
+        Node fast = head;
+        Node prev = null;
+
+        while(fast.next != null && fast.next.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        if(fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+        }
+
+        prev.next = null;
+
+        slow = reverse(slow);
+
+        merge(head, slow);
+    }
+}
