@@ -1,0 +1,21 @@
+//User function Template for Java
+
+class Solution
+{
+	public static int minOperations(int a[], int n)  {
+	    PriorityQueue<Integer> que = new PriorityQueue<Integer> ();
+	    int sum = 0;
+
+	    for(int i = 0; i < a.length; i++) {
+	        if(que.isEmpty() == false && que.element() < a[i]) {
+	            sum += a[i] - que.element();
+	            que.remove();
+	            que.add(a[i]);
+	        }
+
+	        que.add(a[i]);
+	    }
+
+	    return sum;
+	}
+}
