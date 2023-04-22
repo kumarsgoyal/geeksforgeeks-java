@@ -1,0 +1,76 @@
+
+
+/*node class of the linked list
+class Node
+{
+    int data;
+    Node next;
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+
+}*/
+// you have to complete this function
+class GfG
+{
+
+    private static Node getPivot(Node start, Node end) {
+        if(start == null || end == null || start == end) {
+            return start;
+        }
+
+        Node curr = start;
+        int pivot = end.data;
+        Node prev = start;
+
+        while(curr != end) {
+            if(curr.data < pivot) {
+                prev = start;
+                int temp = curr.data;
+                curr.data = start.data;
+                start.data = temp;
+                start = start.next;
+            }
+            curr = curr.next;
+        }
+
+        int temp = start.data;
+        start.data = pivot;
+        end.data = temp;
+
+        return prev;
+    }
+
+    private static void quick(Node start, Node end) {
+        if(start == null || start == end || end == null) {
+            return;
+        }
+
+        Node pivot = getPivot(start, end);
+
+        quick(start, pivot);
+        quick(pivot.next, end);
+    }
+
+    public static Node quickSort(Node node) {
+        if(node == null || node.next == null) {
+            return node;
+        }
+
+        Node curr = node;
+        Node end = null;
+
+        while(curr != null) {
+            end = curr;
+            curr = curr.next;
+        }
+
+        quick(node, end);
+
+        return node;
+    }
+
+
+}
