@@ -1,0 +1,45 @@
+
+
+class Solution
+{
+    //Function to find a continuous sub-array which adds up to a given number.
+    static ArrayList<Integer> subarraySum(int[] arr, int n, int s)
+    {
+
+        int sum = arr[0], index1 = 0, index2 = 0;
+        boolean flag = false;
+        ArrayList<Integer> result = new ArrayList<Integer> ();
+/*
+        if(s == 0) {
+            result.add(-1);
+            return result;
+        }*/
+
+        while(index1 < n && index2 < n) {
+            if(sum == s && index1 <= index2) {
+                flag = true;
+                break;
+            }
+
+            if(index2 < (n - 1) && sum < s) {
+                index2++;
+                sum = sum + arr[index2];
+            }
+            else {
+                sum = sum - arr[index1];
+                index1++;
+            }
+        }
+
+
+        if(flag == true) {
+            result.add(index1 + 1);
+            result.add(index2 + 1);
+        }
+        else {
+            result.add(-1);
+        }
+
+        return result;
+    }
+}
