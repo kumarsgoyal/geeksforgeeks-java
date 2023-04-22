@@ -1,0 +1,56 @@
+
+
+/*Complete the function below
+Node is as follows:
+class Node{
+	int data;
+	Node next;
+	Node(int d){
+		data=d;
+		next=null;
+	}
+}*/
+class Solution
+{
+	public static Node sortedInsert(Node head,int data) {
+	    Node curr = head;
+	    boolean flag = true;
+	    Node prev = null;
+
+	    while(curr != null && flag == true) {
+	        if(curr.data == data) {
+	            flag = false;
+	            break;
+	        }
+	        else if(data < curr.data) {
+	            flag = false;
+	            break;
+	        }
+	        prev = curr;
+	        curr = curr.next;
+	    }
+
+	    Node temp = new Node(data);
+
+	    if(prev != null) { // node to be inserted at first location
+	        Node next = prev.next;
+	        prev.next = temp;
+	        temp.next = next;
+	    }
+	    else {
+	       Node last = null;
+	       curr = head;
+
+	       do {
+	           last = curr;
+	           curr = curr.next;
+	       }while(curr != head);
+
+	       last.next = temp;
+	       temp.next = head;
+	       head = temp;
+	    }
+
+	    return head;
+    }
+}
