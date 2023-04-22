@@ -1,0 +1,47 @@
+
+
+/* Link list Node
+class Node
+{
+	Node next;
+	int data;
+	Node(int d)
+	{
+		data = d;
+		next = null;
+	}
+}*/
+class GfG
+{
+    /*You are required to complete this method*/
+    Node delete(Node head, int k) {
+
+	    if(k == 0) {
+	        return head;
+	    }
+	    if(k == 1 || head == null) {
+	        return null;
+	    }
+
+	    int count = 1;
+	    Node curr = head;
+	    Node prev = null;
+
+	    while(curr != null) {
+	        if((count % k) == 0) {
+	            prev.next = curr.next;
+	            curr = curr.next;
+	        }
+	        else {
+	            prev = curr;
+	            curr = curr.next;
+	        }
+	        count++;
+	    }
+
+
+
+	    return head;
+
+    }
+}
