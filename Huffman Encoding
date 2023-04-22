@@ -1,0 +1,75 @@
+
+
+//User function Template for Java
+
+
+class Solution {
+
+    class Huffman {
+        int data;
+
+        Huffman left;
+        Huffman right;
+
+        public Huffman(int data) {
+            this.data = data;
+            left = right = null;
+        }
+
+        public Huffman(int data, Huffman left, Huffman right) {
+            this.data = data;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    public ArrayList<String> huffmanCodes(String str, int f[], int N) {
+        Huffman root = buildHuffmanTree(str, f, N);
+        ArrayList<String> result = new ArrayList<String> ();
+        traverseHuffmanTree(root, "", result);
+        return result;
+    }
+
+    private Huffman buildHuffmanTree(String S, int[] f, int N) {
+          PriorityQueue<Huffman> que = new PriorityQueue<> (
+            new Comparator<Huffman> () {
+                public int compare(Huffman a, Huffman b) {
+                    if(a.data == b.data) {
+                        return 1;
+                    }
+                    return a.data - b.data;
+                }
+            }
+        );
+
+        List<String> result = new ArrayList<> ();
+
+        for(int i = 0; i < f.length; i++) {
+            Huffman temp = new Huffman(f[i]);
+            que.add(temp);
+        }
+
+        Huffman root = null;
+
+        while(que.size() > 1) {
+            Huffman left = que.poll();
+            Huffman right = que.poll();
+
+            Huffman temp = new Huffman(left.data + right.data, left, right);
+            root = temp;
+            que.add(temp);
+        }
+
+        return root;
+    }
+
+    private void traverseHuffmanTree(Huffman root, String s, List<String> result) {
+        if(root.left == null && root.right == null) {
+            result.add(s);
+            return;
+        }
+
+        traverseHuffmanTree(root.left, s + "0", result);
+        traverseHuffmanTree(root.right, s + "1", result);
+    }
+}
