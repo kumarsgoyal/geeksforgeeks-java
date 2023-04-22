@@ -1,0 +1,31 @@
+
+
+//User function Template for Java
+
+class Solution {
+    static int maxDiamonds(int[] a, int n, int k) {
+        PriorityQueue<Integer> que = new PriorityQueue<Integer> (
+            new Comparator<Integer> () {
+                public int compare(Integer a, Integer b) {
+                    return b - a;
+                }
+            }
+        );
+
+
+        for(int i = 0; i < n; i++) {
+            que.add(a[i]);
+        }
+
+        int sum = 0;
+
+        while(k > 0) {
+            int temp = que.poll();
+            sum += temp;
+            que.add(temp/2);
+            k--;
+        }
+
+        return sum;
+    }
+};
