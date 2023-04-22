@@ -1,0 +1,63 @@
+
+
+class Solution
+{
+    static class Node {
+        int data;
+        int freq;
+        Node(int data) {
+            this.data = data;
+            this.freq = 1;
+        }
+        Node(int data, int freq) {
+            this.data = data;
+            this.freq = freq;
+        }
+    }
+
+    static ArrayList<Integer> kTop(int[] a, int n, int k) {
+        PriorityQueue<Node> que = new PriorityQueue<> (
+            new Comparator<Node> () {
+                public int compare(Node a, Node b) {
+                    if(a.freq == b.freq) {
+                        return a.data - b.data;
+                    }
+                    return b.freq - a.freq;
+                }
+            }
+        );
+
+        HashMap<Integer, Node> map = new HashMap<> ();
+        ArrayList<Integer> result = new ArrayList<> ();
+        Queue<Node> resultTemp = new LinkedList<> ();
+
+        for(int i = 0; i < a.length; i++) {
+            Node temp = new Node(a[i]);
+
+            if(map.containsKey(a[i])) {
+                Node node = map.get(a[i]);
+                temp.freq = node.freq + 1;
+                map.put(a[i], temp);
+                que.remove(node);
+                que.add(temp);
+            }
+            else {
+                map.put(a[i], temp);
+                que.add(temp);
+            }
+
+           for(int j = 0; j < k && que.size() > 0; j++) {
+               Node node = que.poll();
+               resultTemp.add(node);
+               result.add(node.data);
+           }
+
+           while(resultTemp.isEmpty() == false) {
+               que.add(resultTemp.poll());
+           }
+        }
+
+
+        return result;
+    }
+}
