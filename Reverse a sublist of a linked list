@@ -1,0 +1,62 @@
+
+
+//User function Template for Java
+
+/*
+class Node
+    {
+        int data;
+        Node next;
+        Node(int d) {data = d; next = null; }
+    }
+    */
+class Solution
+{
+
+    private static Node reverse(Node head, int diff) {
+        Node curr = head;
+        Node prev = null;
+        Node next = null;
+
+
+        while(curr != null && diff > 0) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+            diff--;
+        }
+
+        head.next = curr;
+
+        return prev;
+    }
+
+    private static void print(Node temp) {
+        while(temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    public static Node reverseBetween(Node head, int m, int n) {
+        int diff = n - m;
+
+        Node result = new Node(0);
+        result.next = head;
+
+        Node curr = head;
+        Node prev = result;
+
+        while(curr != null && m > 1) {
+            prev = curr;
+            curr = curr.next;
+            m--;
+        }
+
+        prev.next = reverse(curr, diff + 1);
+
+        return result.next;
+    }
+}
