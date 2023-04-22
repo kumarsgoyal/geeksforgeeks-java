@@ -1,0 +1,70 @@
+
+
+/*node class of the linked list
+class Node
+{
+    int data;
+    Node next;
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}*/
+class Solution
+{
+    private static Node reverse(Node head) {
+        Node curr = head;
+        Node prev = null;
+        Node next = null;
+
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        return prev;
+    }
+
+    public static void rearrange(Node head) {
+        if(head == null || head.next == null) {
+            return ;
+        }
+
+        Node temp = new Node(0);
+        Node ptr = temp;
+        Node curr = head;
+        Node prev = null;
+        Node prevv = null;
+
+        while(curr != null) {
+            prevv = prev;
+            prev = curr;
+            curr = curr.next;
+
+            if(curr != null) {
+                prev.next = curr.next;
+                ptr.next = curr;
+                ptr = ptr.next;
+                prev = curr;
+                curr = curr.next;
+            }
+            else {
+                prevv.next = null;
+            }
+        }
+
+        curr = head;
+
+        while(curr.next != null) {
+            curr = curr.next;
+        }
+
+
+        curr.next = reverse(temp.next);
+
+    }
+
+}
