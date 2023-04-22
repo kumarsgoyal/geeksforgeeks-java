@@ -1,0 +1,53 @@
+
+
+/*
+
+class Node {
+
+    int data;
+    Node next;
+
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+This is method only submission.
+You only need to complete the below method.
+*/
+class Solution
+{
+
+   // Should rearrange given linked list such that all even
+   // positioned Nodes are before odd positioned.
+   // Returns nothing
+    void rearrangeEvenOdd(Node head) {
+
+        if(head == null || head.next == null) {
+            return ;
+        }
+
+        Node curr = head;
+        Node first = new Node(0);
+        Node second = new Node(0);
+
+        Node ptr1 = first;
+        Node ptr2 = second;
+
+        while(curr != null) {
+            ptr1.next = curr;
+            ptr1 = ptr1.next;
+            curr = curr.next;
+
+            if(curr != null) {
+                ptr2.next = curr;
+                ptr2 = ptr2.next;
+                curr = curr.next;
+            }
+        }
+
+        ptr1.next = second.next;
+        ptr2.next = null;
+
+    }
+}
