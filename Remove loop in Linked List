@@ -1,0 +1,73 @@
+
+
+/*
+class Node
+{
+    int data;
+    Node next;
+}
+*/
+
+class Solution
+{
+    //Function to remove a loop in the linked list.
+
+    private static Node loopHead = null;
+
+    private static boolean detectLoop(Node head) {
+        Node slow = head;
+        Node fast = head;
+
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast) {
+                loopHead = slow;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static void removeLoopUtil(Node head) {
+        Node ptr1 = loopHead;
+        Node ptr2 = loopHead;
+
+        int size = 1;
+        while (ptr2.next != ptr1) {
+            ptr2 = ptr2.next;
+            size++;
+        }
+
+        ptr1 = head;
+        ptr2 = head;
+
+        while(size > 0) {
+            size--;
+            ptr2 = ptr2.next;
+        }
+
+        while(ptr1 != ptr2) {
+            ptr1 = ptr1.next;
+            ptr2 = ptr2.next;
+        }
+
+        while(ptr2.next != ptr1) {
+            ptr2 = ptr2.next;
+        }
+
+        ptr2.next = null;
+
+
+    }
+
+    public static void removeLoop(Node head){
+        boolean loop = detectLoop(head);
+
+        if(loop) {
+             removeLoopUtil(head);
+        }
+    }
+}
