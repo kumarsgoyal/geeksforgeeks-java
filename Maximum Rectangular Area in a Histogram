@@ -1,4 +1,31 @@
+// Time Complexity :- O(n)
+// Space Complexity :- O(n)
 
+class Solution {
+    //Function to find largest rectangular area possible in a given histogram.
+    public static long getMaxArea(long hist[], long n) {
+        long area = 0;
+        int i = 0;
+        Stack<Integer> stack = new Stack<> ();
+        
+        for(; i < hist.length; i++) {
+            while(stack.isEmpty() == false && hist[stack.peek()] > hist[i]) {
+                int top = stack.pop();
+                int dist = (stack.isEmpty() == true) ? i :i - stack.peek() - 1;
+                area = Math.max(area, hist[top] * dist);
+            }
+            stack.push(i);
+        }
+        
+        while(stack.isEmpty() == false) {
+                int top = stack.pop();
+                int dist = (stack.isEmpty() == true) ? i : i - stack.peek() - 1;
+                area = Math.max(area, hist[top] * dist);
+        }
+        
+        return area;
+    }
+}
 
 
 /*
