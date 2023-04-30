@@ -1,0 +1,76 @@
+
+
+
+/*
+
+// Time Complexity :- O(n)
+// Space Complexity :- O(n)
+
+class Solution {
+    //Function to find largest rectangular area possible in a given histogram.
+    public static long getMaxArea(long hist[], long n) {
+        long area = 0;
+        long[] leftSmaller = new long[hist.length];
+        long[] rightSmaller = new long[hist.length];
+        Arrays.fill(rightSmaller, hist.length);
+        Stack<Integer> stack = new Stack<> ();
+        
+        for(int i = 0; i < n; i++) {
+            while(stack.isEmpty() == false && hist[stack.peek()] > hist[i]) {
+                rightSmaller[stack.pop()] = i;
+            }
+            
+            leftSmaller[i] = (stack.isEmpty() == false) ? stack.peek() : -1; 
+            
+            stack.push(i);
+        }
+       
+        for(int i = 0; i < n; i++) {
+            area = Math.max(area, (rightSmaller[i] - leftSmaller[i] - 1) * hist[i]);
+        }
+           
+        return area;    
+    }      
+}
+
+*/
+
+
+
+
+
+/*
+// Time Complexity :- O(n^2)
+// Space Complexity :- O(1)
+
+class Solution {
+    //Function to find largest rectangular area possible in a given histogram.
+    public static long getMaxArea(long hist[], long n) {
+        long ans = 0;
+        for(int i = 0; i < n; i++) {
+            int j = i;
+            int k = j;
+            
+            while(j >= 0 && hist[j] >= hist[i]) {
+                j--;
+            }
+            if(j != i)
+                j++;
+            
+            while(k < n && hist[k] >= hist[i]) {
+                k++;
+            }
+            if(k != i)
+                k--;
+            
+            // System.out.println(j + ", " + k + ", " + i);
+            
+            ans = Math.max(ans, (k - j + 1) * hist[i]);
+        }
+        
+        return ans;
+    }
+        
+}
+
+*/
