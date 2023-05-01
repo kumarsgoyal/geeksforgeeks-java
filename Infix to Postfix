@@ -1,0 +1,47 @@
+
+class Solution {
+    // Function to convert an infix expression to a postfix expression.
+    public static String infixToPostfix(String exp) {
+        StringBuilder str = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
+        
+        for(int i = 0; i < exp.length(); i++) {
+            if((exp.charAt(i) >= 'a' && exp.charAt(i) <= 'z') || (exp.charAt(i) >= 'A' && exp.charAt(i) <= 'Z') || 
+                (exp.charAt(i) >= '0' && exp.charAt(i) <= '9')) {
+                str.append(exp.charAt(i));
+            }
+            else if(exp.charAt(i) == '(') {
+                stack.push('(');
+            }
+            else if(exp.charAt(i) == ')') {
+                while(stack.isEmpty() == false && stack.peek() != '(') {
+                    str.append(stack.pop());
+                }
+                if(stack.isEmpty() == false && stack.peek() == '(') 
+                    stack.pop();
+            }
+            else {
+                while(stack.isEmpty() == false && stack.peek() !='(' && ( prec(exp.charAt(i)) <= prec(stack.peek()) ) ) {
+                    str.append(stack.pop());
+                }
+                stack.push(exp.charAt(i));
+            }
+        }
+        
+        while(stack.isEmpty() == false) {
+            str.append(stack.pop());
+        }
+        
+        return str.toString(); 
+    }
+    
+    private static int prec(char a) {
+        if(a == '+' || a == '-')
+            return 1;
+        if(a == '*' || a == '/')
+            return 2;
+        if(a == '^')
+            return 3;
+        return 0;
+    } 
+}
