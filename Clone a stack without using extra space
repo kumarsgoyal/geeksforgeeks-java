@@ -1,0 +1,29 @@
+class Solution {
+    void clonestack(Stack<Integer> st, Stack<Integer> cloned) {
+        int pass = st.size() - 1;
+        int size = st.size() - 1;
+        
+        for(int i = 0; i < pass; i++) {
+            int len = size;
+            int top = st.pop();
+            while(len > 0) {
+                cloned.push(st.pop());
+                len--;
+            }
+            
+            st.push(top);
+            
+            while(cloned.isEmpty() == false) {
+                st.push(cloned.pop());
+            }
+            
+            size--;
+        }
+        
+        while(st.isEmpty() == false) {
+            cloned.push(st.pop());
+        }
+        
+    }
+
+}
