@@ -1,0 +1,24 @@
+class GetMin {
+    //Function to push all the elements into the stack.
+    public static Stack<Integer> _push(int arr[],int n) {
+        Stack<Integer> stack = new Stack<> ();
+        int min = Integer.MAX_VALUE;
+        
+        for(int i = 0; i < n; i++) {
+            stack.push(arr[i]);
+            min = Math.min(min, arr[i]);
+            stack.push(min);
+        }
+        
+        return stack;
+    }
+    
+    //Function to print minimum value in stack each time while popping.
+    static void _getMinAtPop(Stack<Integer>s) {
+        while(s.isEmpty() == false) {
+            System.out.print(s.pop() + " ");
+            s.pop();
+        }
+    }
+    
+}
