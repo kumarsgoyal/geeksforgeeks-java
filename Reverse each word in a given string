@@ -1,0 +1,26 @@
+class Solution {
+    String reverseWords(String S) {
+        StringBuilder str = new StringBuilder();
+        Stack<Character> stack = new Stack<> ();
+        int i = 0;
+        
+        while(i < S.length()) {
+            while(i < S.length() && S.charAt(i) != '.') {
+                stack.push(S.charAt(i));
+                i++;
+            }
+            
+            while(stack.isEmpty()  == false) {
+                str.append(stack.pop());
+            }
+            
+            if(i < S.length() && S.charAt(i) == '.') {
+                str.append('.');
+            }
+            
+            i++;
+        }
+        
+        return str.toString();
+    }
+}
