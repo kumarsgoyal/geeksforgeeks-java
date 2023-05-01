@@ -1,0 +1,48 @@
+
+class Solution {
+    int findMaxDiff(int a[], int n) {
+	    int left[] = leftNearestSmallest(a);
+	    int right[] = rightNearestSmallest(a);
+	    int res = Integer.MIN_VALUE;
+	    
+	    for(int i = 0; i < n; i++)
+	        res = Math.max(res, Math.abs(left[i] - right[i]));
+	       4
+        return res;
+    }
+    
+    private int[] leftNearestSmallest(int[] a) {
+        Stack<Integer> stack = new Stack<> ();
+        int[] ans = new int[a.length];
+        
+        for(int i = 0; i < a.length; i++) {
+            while(stack.isEmpty() == false && a[i] <= stack.peek()) {
+                stack.pop();
+            }
+            
+            ans[i] = (stack.isEmpty() == true) ? 0 : stack.peek();
+            
+            stack.push(a[i]);
+        }
+        
+        return ans;
+    }
+    
+    private int[] rightNearestSmallest(int[] a) {
+        Stack<Integer> stack = new Stack<> ();
+        int[] ans = new int[a.length];
+        
+        for(int i = a.length - 1; i >= 0; i--) {
+            while(stack.isEmpty() == false && a[i] <= stack.peek()) {
+                stack.pop();
+            }
+            
+            ans[i] = (stack.isEmpty() == true) ? 0 : stack.peek();
+            
+            stack.push(a[i]);
+        }
+        
+        return ans;
+    }
+    
+}
