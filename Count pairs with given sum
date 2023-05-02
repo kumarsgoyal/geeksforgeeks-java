@@ -1,0 +1,35 @@
+
+
+//User function Template for Java
+
+class Solution {
+    int getPairsCount(int[] arr, int n, int k) {
+        int count = 0;
+        Map<Integer, Integer> map = new HashMap<> ();
+        
+        for(int i : arr) {
+            map.put(i, ((map.get(i) == null) ? 0 : map.get(i) ) + 1);
+        }
+        
+        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int temp = entry.getKey();
+            int rem = k - temp;
+            if(temp != rem && map.get(rem) != null) {
+                count = count + (entry.getValue() * map.get(rem));
+                map.put(temp, 0);
+            }
+            else if(temp == rem) {
+                count = count + (getCount(temp, map.get(temp) - 1));
+            }
+        }
+        
+        
+        return count;
+    }
+    
+    private int getCount(int num, int n) {
+        int sum = 0;
+        // S = n/2[2a + (n − 1) × d]
+        return n * ((2 * 1) + (n - 1) * 1) / 2;
+    }
+}
