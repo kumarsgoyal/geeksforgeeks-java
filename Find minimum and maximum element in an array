@@ -1,0 +1,15 @@
+class Compute {
+    static pair getMinMax(long a[], long n) {
+        Long min = a[0], max = a[0];
+        
+        for(int i = 1; i < n; i++) {
+            Long temp = (Long) a[i];
+            if(min.compareTo(temp) > 0) 
+                min = a[i]; 
+            if(max.compareTo(temp) < 0) 
+                max = a[i]; 
+        } 
+        
+        return new pair(min, max);
+    }
+}
