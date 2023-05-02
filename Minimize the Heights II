@@ -1,0 +1,20 @@
+class Solution {
+    int getMinDiff(int[] arr, int n, int k) {
+        Arrays.sort(arr);
+        int tempMin = arr[0];
+        int tempMax = arr[n - 1];
+        int ans = tempMax - tempMin;
+        
+        for(int i = 1; i < n; i++) {
+            if(arr[i] - k < 0)
+                continue;
+            
+            tempMin = Math.min(arr[0] + k, arr[i] - k);
+            tempMax = Math.max(arr[i - 1] + k, arr[n - 1] - k);
+            
+            ans = Math.min(ans, tempMax - tempMin);
+        }
+        
+        return ans;
+    }
+}
