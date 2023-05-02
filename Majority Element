@@ -1,0 +1,73 @@
+class Solution {
+    static int majorityElement(int a[], int size) {
+        //Moore’s Voting Algorithm
+        
+        int index = majorityElementCandidate(a);
+        if(isMajorityElement(a, a[index])) {
+            return a[index];
+        }
+        
+        return -1;
+    }
+    
+    private static int majorityElementCandidate(int[] a) {
+        int majIndex = 0, count = 1;
+        for(int i = 1; i < a.length; i++) {
+            if(a[majIndex] == a[i]) 
+                count++;
+            else 
+                count--;
+                
+            if(count == 0) {
+                majIndex = i;
+                count = 1;
+            }
+        }
+        return majIndex;
+    }
+    
+    private static boolean isMajorityElement(int[] a, int num) {
+        int count = 0;
+        
+        for(int i = 0; i < a.length; i++) {
+            if(a[i] == num) 
+                count++;
+        }
+        
+        if(count > a.length / 2) 
+            return true;
+        else
+            return false;
+    }
+}
+
+
+
+/*
+
+//User function Template for Java
+
+class Solution
+{
+    static int majorityElement(int a[], int size)
+    {
+        Map<Integer, Integer> map = new HashMap<Integer, Integer> ();
+        
+        for (int i = 0; i < size; i++) {
+            if(map.containsKey(a[i])) {
+                map.put(a[i], map.get(a[i]) + 1);
+            }
+            else {
+                map.put(a[i], 1);
+            }
+            
+            if(map.get(a[i]) > (size/2)) {
+                return a[i];
+            }
+        }
+        
+        return -1;
+    }
+}
+
+*/
