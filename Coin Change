@@ -1,0 +1,33 @@
+class Solution {
+    public long count(int coins[], int N, int sum) {
+        long[] dp = new long[sum + 1];
+        dp[0] = 1;
+        
+        for(int i = 0; i < N; i++) {
+            for(int j = coins[i]; j <= sum; j++) {
+                dp[j] = dp[j] + dp[j - coins[i]];
+            }
+        }
+        
+        return dp[sum];
+    }
+}
+
+
+
+/*
+
+class Solution {
+    public long count(int coins[], int N, int sum) {
+        if(sum == 0)
+            return 1;
+        if(N == 0)
+            return 0;
+        if(sum < 0) 
+            return 0;
+        
+        return count(coins, N - 1, sum) + count(coins, N, sum - coins[N - 1]);
+    }
+}
+
+*/
