@@ -1,0 +1,71 @@
+
+class Solution {
+
+    int maxIndexDiff(int arr[], int n) {
+        Stack<Integer> stack = new Stack<> ();
+        
+        for(int i = 0; i < n; i++) {
+            if(stack.isEmpty() == true || arr[stack.peek()] > arr[i]) 
+                stack.push(i);
+        }
+        
+        int ans = 0;
+        
+        for(int i = n - 1; i > 0 && stack.isEmpty() == false; i--) {
+            while(stack.isEmpty() == false && arr[stack.peek()] <= arr[i]) {
+                ans = Math.max(ans, i - stack.pop());
+            }
+        }
+        
+        return ans;
+    }
+}
+
+
+
+/*
+
+class Node {
+    int data;
+    int index;
+    
+    public Node(int data, int index) {
+        this.data = data;
+        this.index = index;
+    }
+}
+
+class Solution {
+
+    int maxIndexDiff(int arr[], int n) {
+        Node[] nodeArr = new Node[n];
+        
+        for(int i = 0; i < n; i++) {
+            nodeArr[i] = new Node(arr[i], i);
+        }
+        
+        Arrays.sort(nodeArr, new Comparator<Node>() {
+            public int compare(Node a, Node b) {
+                if(a.data == b.data) 
+                    return a.index - b.index;
+                return a.data - b.data;
+            }
+        });
+    
+        int minIndex = nodeArr[0].index;
+        int ans = 0;
+        for(int i = 1; i < n; i++) {
+            if(nodeArr[i].index < minIndex) {
+                minIndex = nodeArr[i].index;
+            }
+            else {
+                ans = Math.max(ans, nodeArr[i].index - minIndex);
+            }
+        }
+    
+        return ans;
+    }
+
+}
+
+*/
