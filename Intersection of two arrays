@@ -1,0 +1,28 @@
+
+class Solution {
+    // Function to return the count of the number of elements in
+    // the intersection of two arrays.
+    public static int NumberofElementsInIntersection(int a[], int b[], int n, int m) {
+        if(a.length < b.length)
+            return NumberofElementsInIntersectionUtil(a, b);
+        return NumberofElementsInIntersectionUtil(b, a);
+    }
+    
+    private static int NumberofElementsInIntersectionUtil(int[] a, int[] b) {
+        Set<Integer> set = new HashSet<> ();
+        int count = 0;
+        
+        for(int i = 0; i < a.length; i++) {
+            set.add(a[i]);
+        }
+        
+        for(int i = 0; i < b.length; i++) {
+            if(set.contains(b[i]) == true) {
+                count++;
+                set.remove(b[i]);
+            }
+        }
+        
+        return count;
+    }
+};
