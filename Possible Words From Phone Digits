@@ -1,0 +1,25 @@
+class Solution {
+    private static String[] MAPPING = new String[] {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    //Function to find list of all words possible by pressing given numbers.
+    static ArrayList <String> possibleWords(int a[], int N) {
+        ArrayList<String> res = new ArrayList<> ();
+        int index = 0;
+        solve(a, N, res, "", index);
+        
+        return res;
+    }
+    
+    static private void solve(int a[], int n, ArrayList<String> res, String output, int index) {
+        if(index >= n) {
+            res.add(output);
+            return;
+        }
+        
+        String str = MAPPING[a[index]];
+        
+        for(int i = 0; i < str.length(); i++) {
+            solve(a, n, res, output + str.charAt(i), index + 1);
+        }
+        
+    }
+}
