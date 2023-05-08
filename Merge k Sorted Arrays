@@ -1,0 +1,45 @@
+
+
+//User function Template for Java
+
+
+class Solution
+{
+    
+    static class Pair {
+        int i;
+        int index;
+        public Pair(int index, int i) {
+            this.index = index;
+            this.i = i;
+        }
+    }
+    
+    //Function to merge k sorted arrays.
+    public static ArrayList<Integer> mergeKArrays(int[][] arr,int k) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        PriorityQueue<Pair> que = new PriorityQueue<Pair>(
+            new Comparator<Pair> () {
+                public int compare(Pair a, Pair b) {
+                    return arr[a.index][a.i] - arr[b.index][b.i];
+                }
+            });
+        
+        
+        for(int i = 0; i < k; i++) {
+            que.add(new Pair(i, 0));
+        }
+        
+        while(que.size() > 0) {
+            Pair temp = que.remove();
+            res.add(arr[temp.index][temp.i]);
+            if(temp.i < k - 1) {
+                temp.i = temp.i + 1;
+                que.add(temp);
+            }
+        }
+        
+        return res;
+        
+    }
+}
