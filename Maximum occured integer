@@ -1,0 +1,26 @@
+
+class Solution {
+
+    //Function to find the maximum occurred integer in all ranges.
+    public static int maxOccured(int L[], int R[], int n, int maxx){
+        int[] freq  = new int[maxx + 2];
+        
+        for(int i = 0; i < n; i++) {
+            freq[L[i]] += 1;
+            freq[R[i] + 1] -= 1;
+        }
+        
+        int ans = 0;
+        int count = 0;
+        for(int i = 1; i < maxx + 2; i++) {
+            freq[i] = freq[i - 1] + freq[i];
+            if(freq[i] > freq[ans])  {
+                ans = i;
+            }
+        }
+        
+        
+        return ans;
+    }
+    
+}
