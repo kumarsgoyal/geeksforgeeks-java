@@ -1,0 +1,39 @@
+
+class Solution {
+    ArrayList<Long> nthRowOfPascalTriangle(int n) {
+        ArrayList<Long> result = new ArrayList<Long>();
+        nthRowOfPascalTriangle(n, result);
+        
+        return result;
+    }
+    
+    private void nthRowOfPascalTriangle(int n, ArrayList<Long> result) {
+        Deque<Long> que = new LinkedList<Long>();
+        Long mod = new Long(1000000007);
+        
+        if(n >= 1) {
+            que.addLast(new Long(1));
+        }
+        if(n >= 2) {
+            que.addLast(new Long(1));
+        }
+        if(n >= 3) {
+            
+            for(int i = 2; i < n; i++) {
+                int size = que.size();
+                while(size > 1) {
+                    Long temp = que.pollFirst();
+                    que.addLast((temp + que.peekFirst()) % mod);
+                    size--;
+                }
+                que.addLast(new Long(1));
+            }
+        }
+        
+        
+        while(que.isEmpty() == false) {
+            result.add(que.pollFirst());
+        }
+        
+    }
+}
