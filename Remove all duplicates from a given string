@@ -1,0 +1,30 @@
+
+class Solution {
+    String removeDuplicates(String str) {
+        int[] freqa = new int[27];
+        int[] freqA = new int[27];
+        
+        StringBuilder res = new StringBuilder();
+        
+        for(int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) >= 'A' && str.charAt(i) <= 'Z') {
+                freqA[str.charAt(i) - 'A'] += 1;
+            
+                if(freqA[str.charAt(i) - 'A'] == 1) {
+                    res.append(str.charAt(i));
+                }
+            }
+            else {
+                freqa[str.charAt(i) - 'a'] += 1;
+            
+                if(freqa[str.charAt(i) - 'a'] == 1) {
+                    res.append(str.charAt(i));
+                }
+            }
+        }
+        
+        res.append('\0');
+        
+        return new String(res);
+    }
+}
