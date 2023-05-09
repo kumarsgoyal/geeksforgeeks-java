@@ -1,0 +1,113 @@
+class Node {
+    int data;
+    Node left;
+    Node right;
+
+    public Node(int data) {
+        this.data = data;
+        this.left = this.right = null;
+    }
+}
+
+class Solution {
+    
+    public static ArrayList<Integer> findLeastGreater(int n, int[] arr) {
+        return createBst(arr, n);
+    }
+    
+    private static ArrayList<Integer> createBst(int[] arr, int n) {
+        Node root = null; 
+        Node[] succ = new Node[1];
+        ArrayList<Integer> res = new ArrayList<> (); 
+        
+        for(int i = n - 1; i >= 0; i--) { 
+            succ[0] = null; 
+            root = insertNode(root, arr[i], succ); 
+            
+            if(succ[0] != null)  
+                arr[i] = succ[0].data; 
+            else  
+                arr[i] = -1;  
+        }
+        
+        for(int i = 0; i < n; i++) {
+            res.add(arr[i]);
+        }
+        
+        return res;
+    }
+    
+    private static Node insertNode(Node root, int data, Node[] succ) {
+        if(root == null) {
+            return new Node(data);
+        }
+        
+        if(data < root.data ) {
+            succ[0] = root;
+            root.left = insertNode(root.left, data, succ);
+        }
+        else {
+            root.right = insertNode(root.right, data, succ);
+        }
+        
+        return root;
+    }
+}
+       
+       
+
+/*
+
+class Solution {
+    
+    static class BinarySearchTreeNode {
+        int val;
+        BinarySearchTreeNode left;
+        BinarySearchTreeNode right;
+        public BinarySearchTreeNode(int val) {
+            this.val = val;
+            this.left = this.right = null;
+        }
+    }
+    
+    private static BinarySearchTreeNode root;
+    private static BinarySearchTreeNode succ;
+    
+    public static ArrayList<Integer> findLeastGreater(int n, int[] arr) {
+        ArrayList<Integer> res = new ArrayList<> ();
+        root = null;
+        
+        for(int i = n - 1; i >= 0; i--) {
+            succ = null;
+            root = insert(root, arr[i]);
+            
+            if(succ == null) 
+                res.add(-1);
+            else 
+                res.add(succ.val);
+        }
+        
+        Collections.reverse(res);
+        return res;
+    }
+    
+    private static BinarySearchTreeNode insert(BinarySearchTreeNode root, int num) {
+        if(root == null) {
+            return new BinarySearchTreeNode(num);
+        }
+        
+        if(root.val > num) {
+            succ = root;
+            root.left = insert(root.left, num);
+        }
+        else {
+            root.right = insert(root.right, num);
+        }
+        
+        return root;
+    }
+    
+}
+
+*/
+        
