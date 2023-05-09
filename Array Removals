@@ -1,0 +1,28 @@
+class Solution {
+    int removals(int[] arr, int n, int k) {
+        Arrays.sort(arr);
+        
+        int start = 0, end = n - 1;
+        int[][] dp = new int[101][101];
+        
+        for(int[] i : dp)
+            Arrays.fill(i, -1);
+        
+        return solve(arr, k, dp, start, end);
+    }
+    
+    private int solve(int[] arr, int k, int[][] dp,int start, int end) {
+        if(start >= end) 
+            return 0;
+            
+        if((arr[end] - arr[start]) <= k)    
+            return 0;
+        
+        if(dp[start][end] != -1)
+            return dp[start][end];
+        
+        dp[start][end] = 1 + Math.min(solve(arr, k, dp, start + 1, end), solve(arr, k, dp, start, end - 1));
+        return dp[start][end];
+
+    }
+}
