@@ -1,0 +1,26 @@
+class Solution {
+    public int maxWeightCell(int N, int Edge[]) { 
+       int[] freq = new int[N];
+       int max = -1;
+       int index = 0;
+       
+       for(int i = 0; i < N; i++) {
+           freq[i] = 0;
+       }
+       
+       for(int i = 0; i < Edge.length; i++) {
+            if(Edge[i] != -1) {
+                freq[Edge[i]] = freq[Edge[i]] + i;
+            }
+       }
+       
+       for(int i = 0; i < N; i++) {
+           if(freq[i] >= max) {
+               max = freq[i];
+               index = i;
+           }
+       }
+       
+       return index;
+    }
+}
