@@ -1,0 +1,36 @@
+class Solution {
+    public static int buyMaximumProducts(int n, int k, int[] price) {
+
+        int res = 0;
+        int [][] temp = new int[n][2];
+        
+        for(int i = 0; i < n; i++) {
+            temp[i][0] = price[i];
+            temp[i][1] = i + 1;
+        }
+        
+        Arrays.sort(temp, new Comparator<int[]> () {
+            public int compare(int[] a, int[] b) {
+                if(a[0] == b[0]) 
+                    return b[1] - a[1];
+                return a[0] - b[0];
+            }
+        });
+        
+        for(int i = 0; i < n; i++) {
+            int cost = temp[i][0] * temp[i][1];
+            if(k >= cost) {
+                k = k - cost;
+                res = res + temp[i][1];
+            }
+            else {
+                int share = k / temp[i][0];
+                res = res + share;
+                k = k - temp[i][0] * share;
+                res = res + (k / temp[i][0]);
+            }
+        }
+        
+        return res;
+    }
+}
