@@ -1,3 +1,36 @@
+class Solution{
+    String longestCommonPrefix(String arr[], int n){
+        boolean flag = true;
+        int j = 0;
+        StringBuilder str = new StringBuilder();
+        
+        while(flag) {
+            
+            for(int i = 0; i < n && (flag == true); i++) {
+                if(j < arr[i].length() && arr[i].charAt(j) == arr[0].charAt(j)) {
+                    
+                }
+                else {
+                    flag = false;
+                }
+            }
+            
+            if(flag == true) {
+                str.append(arr[0].charAt(j));
+                j++;
+            }
+        }
+        
+        if(j == 0) {
+            str.append("-1");
+        }
+        
+        
+        return str.toString();
+    }
+}
+
+/*
 
 class Solution{
     String longestCommonPrefix(String arr[], int n){
@@ -38,3 +71,5 @@ class Solution{
         return str.toString();
     }
 }
+
+*/
