@@ -1,0 +1,21 @@
+class Solution {
+    int atoi(String str) {
+	    int sum = 0, index = 0, sign = 1;
+	    
+	    if(str.charAt(index) == '-') {
+            sign = -1;
+            index++;
+        }
+	    
+	    for(int i = index; i < str.length(); i++) {
+	        if(str.charAt(i) >= '0' && str.charAt(i) <= '9') {
+	            sum = sum * 10 + str.charAt(i) - '0';
+	        }
+	        else {
+	            return -1;
+	        }
+	    }
+	   
+	    return sum * sign;
+    }
+}
