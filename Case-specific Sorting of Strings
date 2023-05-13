@@ -1,0 +1,38 @@
+class Solution {
+    //Function to perform case-specific sorting of strings.
+    public static String caseSort(String str) {
+        int[] freqLowerCase = new int[26];
+        int[] freqUpperCase = new int[26];
+        StringBuilder res = new StringBuilder();
+        
+        for(int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) >= 'a' && str.charAt(i) <= 'z') 
+                freqLowerCase[str.charAt(i) - 'a']++;
+            else 
+                freqUpperCase[str.charAt(i) - 'A']++;
+        }
+        
+        int indexi = 0, indexj = 0;
+        
+        for(int i = 0; i < str.length(); i++) {
+            if(str.charAt(i) >= 'a' && str.charAt(i) <= 'z')  {
+                char x = 'a';
+                while(freqLowerCase[indexi] == 0) {
+                    indexi++;
+                }
+                res.append(x += indexi);
+                freqLowerCase[indexi]--;
+            }
+            else{
+                char x = 'A';
+                while(freqUpperCase[indexj] == 0) {
+                    indexj++;
+                } 
+                res.append(x += indexj);
+                freqUpperCase[indexj]--;
+            }
+        }
+        
+        return res.toString();
+    }
+}
