@@ -1,0 +1,84 @@
+
+//User function Template for Java
+class Solution{
+    static String printMinNumberForPattern(String S) {
+        StringBuilder res = new StringBuilder();
+        Stack<Integer> stk = new Stack<Integer>();
+        
+        for(int i = 0; i <= S.length(); i++) {
+            stk.push(i+1);
+            if(i == S.length() || S.charAt(i) == 'I') {
+                while(!stk.empty()) {
+                    System.out.print(stk.pop());
+	            }
+            }
+        }
+        
+        return res.toString();
+    }
+}
+
+
+/*
+
+//User function Template for Java
+class Solution{
+    static String printMinNumberForPattern(String S){
+        int lastNum = 0, currMax = 0;
+        StringBuilder res = new StringBuilder();
+        
+        for(int i = 0; i < S.length(); i++) {
+            int nextDcount = 0;
+            
+            switch(S.charAt(i)) {
+                case 'I' : 
+                    int j = i + 1;
+                    while(j < S.length() && S.charAt(j) == 'D') {
+                        nextDcount++;
+                        j++;
+                    }
+                    
+                    if(i == 0) {
+                        currMax = nextDcount + 2;
+                        res.append(1);
+                    }
+                    else {
+                        currMax = currMax + nextDcount + 1;
+                    }
+                    
+                    lastNum = currMax;
+                    res.append(lastNum);
+                    
+                    for(int k = 0; k < nextDcount; k++) {
+                        --lastNum;
+                        res.append(lastNum);
+                        i++;
+                    }
+                    break;
+                
+                case 'D': 
+                    if(i == 0) {
+                        j = i + 1;
+                        while(j < S.length() && S.charAt(j) == 'D') {
+                            nextDcount++;
+                            j++;
+                        }
+                        currMax = nextDcount + 2;
+                        res.append(currMax);
+                        res.append(currMax - 1);
+                        lastNum = currMax - 1;
+                    }
+                    else {
+                        res.append(lastNum - 1);
+                        lastNum--;
+                    }
+                    
+                    break;
+            }
+        }
+        
+        return res.toString();
+    }
+}
+
+*/
