@@ -1,0 +1,35 @@
+
+
+//User function Template for Java
+
+
+class Solution
+{
+    public ArrayList<String> permutation(String S) {
+        ArrayList<String> arr = new ArrayList<> ();
+        char[] str = S.toCharArray();
+        permutationUtil(str, 0, str.length - 1, arr);
+        Collections.sort(arr);
+        return arr;
+    }
+    
+    private void permutationUtil(char[] str, int l, int r, ArrayList<String> arr) {
+        if(l == r) {
+            arr.add(new String(str));
+            return;
+        }
+        
+        for(int i = l; i <= r; i++) {
+            swap(str, l, i);
+            permutationUtil(str, l + 1, r, arr);
+            swap(str, l, i);
+        }
+    }
+    
+    private void swap(char[] str, int i, int j) {
+        char temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+    }
+	   
+}
