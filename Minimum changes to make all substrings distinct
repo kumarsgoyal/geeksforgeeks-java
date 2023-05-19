@@ -1,0 +1,15 @@
+class Solution{
+    static int minChange(String S){
+        int[] freq = new int[26];
+        int count = 0;
+        
+        for(int i = 0; i < S.length(); i++) {
+            freq[S.charAt(i) - 'a']++;
+            if(freq[S.charAt(i) - 'a'] > 1) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+}
