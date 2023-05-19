@@ -1,0 +1,23 @@
+
+
+/*You have to complete this function*/
+class GfG
+{
+    ArrayList<String> spaceString(String str) {
+        ArrayList<String> arr = new ArrayList<> ();
+        helper(str, 0, arr, "");
+        return arr;
+    }
+    
+     private void helper( String str, int i, ArrayList<String> list, String temp){
+            if(i == str.length() - 1){
+                temp += str.charAt(i) ;
+                list.add(temp);
+                temp = "";
+                return;
+            }
+
+            helper(str, i + 1, list, temp + str.charAt(i)) ;
+            helper(str, i + 1, list, temp + str.charAt(i) + " ") ;
+        }
+}
