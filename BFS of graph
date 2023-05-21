@@ -1,6 +1,51 @@
 class Solution {
     // Function to return Breadth First Traversal of given graph.
     public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+        ArrayList<Integer> result = new ArrayList<> ();
+        boolean[] visited = new boolean[V];
+        Queue<Integer> queue = new LinkedList<> ();
+        
+        
+        // to handle disconnected graph
+        // for(int i = 0; i < V; i++) {
+        //     if(visited[i] == false) {
+        //         queue.add(i);
+        //         visited[i] = true;
+        //         bfsOfGraphUtil(adj, queue, visited, result);
+        //     }
+        // }
+        
+        queue.add(0);
+        visited[0] = true;
+        bfsOfGraphUtil(adj, queue, visited, result);
+        
+        return result;
+    }
+    
+    private void bfsOfGraphUtil(ArrayList<ArrayList<Integer>> adj, Queue<Integer> que, boolean[] visited, ArrayList<Integer> result) {
+        if(que.isEmpty()) 
+            return;
+        
+        int v = que.remove();
+        result.add(v);
+        
+        for(int i : adj.get(v)) {
+            if(visited[i] == false) {
+                visited[i] = true;
+                que.add(i);
+            }
+        }
+        
+        bfsOfGraphUtil(adj, que, visited, result);
+        
+    }
+}
+
+/*
+
+class Solution {
+    // Function to return Breadth First Traversal of given graph.
+    public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
         
         ArrayList<Integer> result = new ArrayList<> ();
         Queue<Integer> queue = new LinkedList<> ();
@@ -23,3 +68,5 @@ class Solution {
         return result;
     }
 }
+
+*/
