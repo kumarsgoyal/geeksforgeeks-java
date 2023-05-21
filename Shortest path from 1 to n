@@ -1,0 +1,43 @@
+class Solution{
+    static int minStep(int n){
+        return steps(n, 0);
+    }
+    
+    private static int steps(int n, int edge) {
+        if(n == 0) 
+            return 0;
+        if(n == 1)
+            return edge;
+        
+        return (n % 3 == 0) ? steps(n / 3, edge + 1) : steps(n - 1, edge + 1);
+    }
+}
+
+
+
+/*
+
+class Solution{
+    static int minStep(int n){
+        return steps(n, 0);
+    }
+    
+    private static int steps(int n, int edge) {
+        if(n == 0) 
+            return 0;
+        if(n == 1)
+            return edge;
+        
+        if(n % 3 == 0)  
+            n = n / 3;
+        else 
+            n = n - 1;
+        
+        edge++;
+        
+        return steps(n, edge);
+        
+    }
+}
+
+*/
