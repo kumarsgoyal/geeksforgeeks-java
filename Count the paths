@@ -1,0 +1,28 @@
+class Solution {
+    public int possible_paths(int[][] edges, int n, int s, int d) {
+        int[][] arr = new int[n][n];
+        
+        for(int i = 0; i < edges.length; i++) {
+            int u1 = edges[i][0];
+            int u2 = edges[i][1];
+            
+            arr[u1][u2] = 1;
+        }
+        
+        return possiblePathsUtil(arr, d, s);
+    }
+    
+    private int possiblePathsUtil(int[][] edges, int d, int v) {
+        if(v == d) 
+            return 1;
+        
+        int count = 0;
+        for(int i = 0; i < edges.length; i++) {
+            if(edges[v][i] != 0) {
+                count += possiblePathsUtil(edges, d, i);
+            }
+        }
+        
+        return count;
+    }
+}
