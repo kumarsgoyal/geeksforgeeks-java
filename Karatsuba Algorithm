@@ -1,0 +1,23 @@
+// this solution in not based on Karatsuba Algorithm
+
+class Solution {
+
+    static Long karatsubaAlgo(String A, String B) {
+        long a = convertToNumber(A);
+        long b = convertToNumber(B);
+        
+        return new Long(a * b);
+    }
+    
+    private static long convertToNumber(String str) {
+        long ans = 0;
+        long v = 0;
+        
+        for(int i = str.length() - 1; i >= 0; i--) {
+            long k = (int) str.charAt(i) - 48;
+            ans += (long) Math.pow(2, v++) * k;
+        }
+        
+        return ans;
+    }
+};
