@@ -1,0 +1,61 @@
+class Solution {
+    
+    class Node {
+        int x;
+        int y;
+        int dist;
+        public Node(int x, int y, int dist)  {
+            this.x = x;
+            this.y = y;
+            this.dist = dist;
+        }
+        
+    }
+
+    int shortestPath(int[][] grid, int[] source, int[] destination) {
+        return shortestDistanceUtil(grid, source, destination);
+    }
+    
+    private int shortestDistanceUtil(int[][] a, int[] source, int[] destination) {
+        int n = a.length;
+        int m = a[0].length;
+    
+        if(a[source[0]][source[1]] == 0 || a[destination[0]][destination[1]] == 0) 
+            return -1;
+        
+        int[] xCord = {-1, 0, 0, 1};
+        int[] yCord = {0, -1, 1, 0};
+        boolean[][] visited = new boolean[n][m];
+        Queue<Node> que = new LinkedList<> ();
+        
+        Node node = new Node(source[0], source[1], 0);
+        visited[source[0]][source[1]] = true;
+        que.add(node);
+        
+        while(que.isEmpty() == false) {
+            Node temp = que.remove();
+            
+            if(temp.x == destination[0] && temp.y == destination[1]) 
+                return temp.dist;
+            
+            for(int i = 0; i < xCord.length; i++) {
+                int row = xCord[i] + temp.x;
+                int col = yCord[i] + temp.y;
+                
+                if(isValid(row, col, n, m) && a[row][col] == 1 && visited[row][col] == false) {
+                    visited[row][col] = true;
+                    que.add(new Node(row, col, temp.dist + 1));
+                }
+            }
+            
+        }
+        
+        return -1;
+    }
+    
+    private boolean isValid(int i, int j, int n, int m) {
+        if(i < 0 || i >= n || j < 0 || j >= m) 
+            return false;
+        return true;
+    }
+}
