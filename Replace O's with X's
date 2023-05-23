@@ -1,0 +1,59 @@
+class Solution {
+    
+    private static int nn, mm;
+    
+    static char[][] fill(int n, int m, char a[][]) {
+        // traverse the boundary if find 0 do dfs or bfs to all surrounded 0 those are non convertable
+        nn = n;
+        mm = m;
+        
+        boolean[][] visited = new boolean[n][m]; 
+        replaceAllWith(a, n, m, 'O', '-'); 
+    
+        for(int i = 0; i < m ; i++) 
+            if(a[0][i] == '-')
+                fillTheMatrix(a, 0, i, visited);
+        
+        for(int i = 0 ; i < m; i++)
+            if(a[n - 1][i] == '-') 
+                fillTheMatrix(a, n - 1, i, visited);
+        
+        for(int i = 0; i < n; i++)
+            if(a[i][0] == '-')
+                fillTheMatrix(a, i, 0, visited);
+        
+        for(int i = 0; i < n; i++) 
+            if(a[i][m - 1] == '-') 
+                fillTheMatrix(a, i, m - 1, visited);
+        
+        replaceAllWith(a, n, m, '-', 'X');
+        
+        return a;
+    }
+    
+    private static void replaceAllWith(char[][] a, int n, int m, char x, char y) {
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(a[i][j] == x) 
+                    a[i][j] = y;
+            }
+        }
+    }
+    
+    private static void fillTheMatrix(char[][] a, int i, int j, boolean[][] visited) {
+        if(i < 0 || i >= nn || j < 0 || j >= mm) 
+            return;
+        
+        if(visited[i][j] == true || a[i][j] == 'X') 
+            return;
+            
+        visited[i][j] = true;
+        a[i][j] = 'O';
+        
+        fillTheMatrix(a, i - 1, j, visited);
+        fillTheMatrix(a, i, j - 1, visited);
+        fillTheMatrix(a, i + 1, j, visited);
+        fillTheMatrix(a, i, j + 1, visited);
+    }
+    
+}
