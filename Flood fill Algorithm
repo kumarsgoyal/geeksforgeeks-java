@@ -1,0 +1,31 @@
+class Solution {
+
+    private int n, m;
+
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        n = image.length;
+        m = image[0].length;
+        boolean[][] visited = new boolean[n][m];
+        
+        floodFillUtil(image, sr, sc, newColor, image[sr][sc], visited);
+        
+        return image;
+    }
+
+    private void floodFillUtil(int[][] image, int i, int j, int newColor, int color, boolean[][] visited) {
+        if(i < 0 || i >= n || j < 0 | j >= m) 
+            return;
+        
+        if(image[i][j] != color || visited[i][j] == true)
+            return;
+        
+        visited[i][j] = true;
+        image[i][j] = newColor;
+        
+        floodFillUtil(image, i - 1, j, newColor, color, visited);
+        floodFillUtil(image, i + 1, j, newColor, color, visited);
+        floodFillUtil(image, i, j - 1, newColor, color, visited);
+        floodFillUtil(image, i, j + 1, newColor, color, visited);
+    }
+        
+}
