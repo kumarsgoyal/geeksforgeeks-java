@@ -1,0 +1,63 @@
+class Solution {
+    
+    int[] x = { -1, -1, -1, 0, 0, 1, 1, 1 };
+    int[] y = { -1, 0, 1, -1, 1, -1, 0, 1 };
+    int rowCount = 0, colCount = 0;
+    
+    public String[] wordBoggle(char[][] board, String[] dictionary) {
+        List<String> result = new ArrayList<> ();
+        
+        for(String word : dictionary) {
+            if(wordBoggleUtil(board, word) == true) 
+                result.add(word);
+        }
+        
+        return result.toArray(new String[0]);
+    }
+    
+    private boolean wordBoggleUtil(char[][] board, String word) {
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[i].length; j++) {
+                if(board[i][j] == word.charAt(0) && dfs(board, i, j, word)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    private boolean dfs(char[][] board, int row, int col, String word) {
+        rowCount = board.length;
+        colCount = board[0].length;
+        boolean[][] visited = new boolean[rowCount][colCount];
+        return dfsUtil(board, row, col, word, visited, 0);
+    }
+    
+    private boolean dfsUtil(char[][] board, int row, int col, String word, boolean[][] visited, int index) {
+        if(visited[row][col] == true)
+            return false;
+            
+        if(index == (word.length() - 1)) 
+            return true;
+        
+        visited[row][col] = true;
+        
+        for(int i = 0; i < x.length; i++) {
+            int newRow = row + x[i];
+            int newCol = col + y[i];
+            if(isValid(newRow, newCol) && (board[newRow][newCol] == word.charAt(index + 1)) &&
+                dfsUtil(board, newRow, newCol, word, visited, index + 1) == true) {
+                return true;
+            }
+        }
+        
+        visited[row][col] = false;
+        return false;
+    }
+    
+    private boolean isValid(int row, int col) {
+        if(row < 0 || row >= rowCount || col < 0 || col >= colCount) 
+            return false;
+        return true;
+    }
+}
