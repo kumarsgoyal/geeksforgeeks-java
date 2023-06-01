@@ -1,0 +1,96 @@
+
+class Solution {
+    
+    private static int CHAR_LENGTH = 26;
+    
+    static int isCircle(int N, String A[]) {
+        List<List<Integer>> graph = new ArrayList<> ();
+        int[] inDegree = new int[CHAR_LENGTH];
+        
+        buildTheGraph(graph);
+        fillTheGraph(graph, A, inDegree);
+        
+        if(isEulerianCycle(inDegree, graph) == false || isStronglyConnected(graph) == false) 
+            return 0;
+        
+        return 1;
+    }
+    
+    private static void buildTheGraph(List<List<Integer>> graph) {
+        for(int i = 0; i < CHAR_LENGTH; i++) {
+            graph.add(new ArrayList<> ());
+        }
+    }
+    
+    private static void fillTheGraph(List<List<Integer>> graph, String[] A, int[] inDegree) {
+        for(int i = 0; i < A.length; i++) {
+            int len = A[i].length();
+            graph.get(A[i].charAt(0) - 'a').add(A[i].charAt(len - 1) - 'a');
+            inDegree[A[i].charAt(len - 1) - 'a'] += 1;
+        }
+    }
+    
+    private static boolean isEulerianCycle(int[] inDegree, List<List<Integer>> graph) {
+        for(int i = 0; i < CHAR_LENGTH; i++) {
+            if(inDegree[i] != graph.get(i).size()) 
+                return false;
+        }
+        return true;
+    }
+    
+    private static boolean isStronglyConnected(List<List<Integer>> graph) {
+        boolean[] visited = new boolean[CHAR_LENGTH];
+        
+        
+        int v = 0;
+        for(v = 0; v < CHAR_LENGTH; v++) {
+            if(graph.get(v).size() > 0) 
+                break;
+        }
+        
+        dfsUtil(graph, v, visited);
+        
+        
+        for(int i = 0; i < CHAR_LENGTH; i++) {
+            if(graph.get(i).size() > 0 && visited[i] == false)
+                return false;
+        }
+        
+        for(int i = 0; i < CHAR_LENGTH; i++) {
+            visited[i] = false;
+        }
+        
+        graph = getTranpose(graph);
+        
+        dfsUtil(graph, v, visited);
+        
+        for(int i = 0; i < CHAR_LENGTH; i++) {
+            if(graph.get(i).size() > 0 && visited[i] == false)
+                return false;
+        }
+        
+        return true;
+    }
+    
+    private static List<List<Integer>> getTranpose(List<List<Integer>> graph) {
+        List<List<Integer>> revGraph = new ArrayList<> ();
+        buildTheGraph(revGraph);
+        
+        for(int i = 0; i < CHAR_LENGTH; i++) {
+            for(int j : graph.get(i)) {
+                revGraph.get(j).add(i);
+            }
+        }
+        
+        return revGraph;
+    }
+    
+    private static void dfsUtil( List<List<Integer>> graph, int v, boolean[] visited) {
+        visited[v] = true;
+        
+        for(int i : graph.get(v)) {
+            if(visited[i] == false) 
+                dfsUtil(graph, i, visited);
+        }
+    }
+}
