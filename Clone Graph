@@ -1,0 +1,47 @@
+
+/*
+    class Node{
+        int val;
+        ArrayList<Node> neighbors;
+        public Node(){
+            val = 0;
+            neighbors = new ArrayList<>();
+        }
+    
+        public Node(int val){
+            this.val = val;
+            neighbors = new ArrayList<>();
+        }
+    
+        public Node(int val, ArrayList<Node> neighbors){
+            this.val = val;
+            this.neighbors = neighbors;
+        }
+    }
+*/
+
+class Solution{
+    Node cloneGraph(Node node){
+        if(node == null) 
+            return null;
+            
+        Map<Node, Node> map = new HashMap<> ();
+        
+        return graph(node, map);
+    }
+    
+    Node graph(Node node, Map<Node, Node> map) {
+        if(map.containsKey(node)) {
+            return map.get(node);
+        }
+        
+        Node temp = new Node(node.val);
+        map.put(node, temp);
+        
+        for(Node n : node.neighbors) {
+            temp.neighbors.add(graph(n, map));
+        }
+        
+        return temp;
+    }
+}
