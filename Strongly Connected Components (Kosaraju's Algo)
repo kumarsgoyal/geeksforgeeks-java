@@ -1,0 +1,71 @@
+
+class Solution {
+    public int kosaraju(int V, ArrayList<ArrayList<Integer>> adj) {
+        Stack<Integer> stack = new Stack<> ();
+        boolean[] visited = new boolean[V];
+        int[] count = new int[1];
+        
+        for(int i = 0; i < V; i++) {
+            if(visited[i] == false) {
+                fillTheOrder(adj, visited, i, stack);
+            }
+        }
+        
+        ArrayList<ArrayList<Integer>> transpose = getTranpose(adj, V);
+        
+        for(int i = 0; i < V; i++) 
+            visited[i] = false;
+            
+        while(stack.isEmpty() == false) {
+            int v = stack.pop();
+            if(visited[v] == false) {
+                dfs(transpose, v, visited);
+                count[0] += 1;
+            }
+        }
+        
+        return count[0];
+    }
+    
+    private void fillTheOrder( ArrayList<ArrayList<Integer>> adj, boolean[] visited, int v, Stack<Integer> stack) {
+        visited[v] = true;
+        
+        for(int u : adj.get(v)) {
+            if(visited[u] == false) {
+                fillTheOrder(adj, visited, u, stack);
+            }
+        }
+        
+        stack.push(v);
+    }
+    
+    private ArrayList<ArrayList<Integer>> getTranpose(ArrayList<ArrayList<Integer>> adj, int V) {
+        ArrayList<ArrayList<Integer>> transpose = new ArrayList<> ();
+        
+        for(int i = 0; i < V; i++) {
+            transpose.add(new ArrayList<> ());
+        }
+        
+        for(int i = 0; i < V; i++) {
+            for(int u : adj.get(i)) {
+                transpose.get(u).add(i);
+            }
+        }
+        
+        return transpose;
+    }
+    
+    private void dfs(ArrayList<ArrayList<Integer>> adj, int v, boolean[] visited) {
+        visited[v] = true;
+        
+        // System.out.print(v + " ");
+        
+        for(int u : adj.get(v)) {
+            if(visited[u] == false) {
+                dfs(adj, u, visited);
+            }
+        }
+        
+    }
+    
+}
