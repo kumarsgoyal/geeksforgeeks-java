@@ -1,0 +1,59 @@
+
+class Solution {
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    //Function to count inversions in the array.
+    static long inversionCount(long arr[], long N) {
+        return mergeSort(arr, 0, arr.length - 1);
+    }
+    
+    static long mergeSort(long[] arr, int start, int end) {
+        long count = 0l;
+        
+        if(start >= end)
+            return count;
+        
+        int mid = start + (end - start) / 2;
+        count += mergeSort(arr, start, mid);
+        count += mergeSort(arr, mid + 1, end);
+        count += merge(arr, start, mid, end);
+        
+        return count;
+    }
+    
+    static long merge(long[] arr, int start, int mid, int end) {
+        long []temp = new long[end - start + 1];
+        int left = start;
+        int right = mid + 1;
+        int index = 0;
+        long count = 0l;
+        
+        while(left <= mid && right <= end) {
+            if(arr[left] <= arr[right]) {
+                temp[index++] = arr[left++];
+            }
+            else {
+                temp[index++] = arr[right];
+                count += (mid - left + 1);
+                right++;
+            }
+        }
+        
+        while (left <= mid) {
+            temp[index++] = arr[left++];
+        }
+
+        while (right <= end) {
+            temp[index++] = arr[right++];
+        }
+        
+        index = 0;
+
+        for (int i = start; i <= end; i++) {
+            arr[i] = temp[index++];
+        }
+
+        return count;
+        
+    }
+}
