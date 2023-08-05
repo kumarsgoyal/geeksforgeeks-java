@@ -1,48 +1,112 @@
 
+// space: O(n)
+// time: O(K)
 
-//User function template for JAVA
-
-class Solution
-{
-    static class Node {
-        int index;
-        int val;
-        public Node(int index, int val) {
-            this.index = index;
-            this.val = val;
-        }
-    }
-
+class Solution {
     //Function to find maximum of each subarray of size k.
     static ArrayList <Integer> max_of_subarrays(int arr[], int n, int k) {
-        ArrayList<Integer> result = new ArrayList<Integer> ();
-        Deque<Integer> que = new LinkedList<Integer>();
-
-        for(int i = 0; i < k; i++) {
+        Deque<Integer> que = new LinkedList<> ();
+        ArrayList<Integer> result = new ArrayList<> ();
+        
+        int i;
+        for(i = 0; i < k; i++) {
             while(que.isEmpty() == false && arr[que.peekLast()] <= arr[i]) {
                 que.removeLast();
             }
-            que.addLast(i);
+            que.add(i);
         }
-
-
-        for(int i = k; i < n; i++) {
+        
+        for(i = k; i < n; i++) {
             result.add(arr[que.peek()]);
-
-            while(que.isEmpty() == false && que.peek() <= i- k) {
+            
+            while(que.isEmpty() == false && que.peek() <= (i - k)) {
                 que.removeFirst();
             }
-
+            
             while(que.isEmpty() == false && arr[que.peekLast()] <= arr[i]) {
                 que.removeLast();
             }
-
-            que.addLast(i);
-
+            
+            que.add(i);
         }
-
+        
         result.add(arr[que.peek()]);
+        
+        return result;
+    }
+}
+
+
+/*
+
+// space: O(n)
+// time: O(n * logn)
+
+class Pair {
+    int index;
+    int value;
+    public Pair(int index, int value) {
+        this.index = index;
+        this.value = value;
+    }
+}
+
+class Solution {
+    //Function to find maximum of each subarray of size k.
+    static ArrayList <Integer> max_of_subarrays(int arr[], int n, int k) {
+        ArrayList<Integer> result = new ArrayList<> ();
+        PriorityQueue<Pair> pQue = new PriorityQueue<>(
+            new Comparator<Pair> () {
+                public int compare(Pair a, Pair b) {
+                    if(a.value == b.value) 
+                        return a.index - b.index;
+                    return b.value - a.value;
+                }
+            });
+            
+        for(int i = 0; i < k; i++) {
+            pQue.add(new Pair(i, arr[i]));
+        }
+        
+        result.add(pQue.peek().value);
+        
+        for(int i = k; i < n; i++) {
+            pQue.add(new Pair(i, arr[i]));
+            
+            while(pQue.peek().index <= i - k) {
+                pQue.poll();
+            } 
+            
+            result.add(pQue.peek().value);
+        }
+        
+        return result;
+    }
+}
+
+*/
+
+
+/*
+
+// space: O(1)
+// time: O(n*k)
+
+class Solution {
+    //Function to find maximum of each subarray of size k.
+    static ArrayList <Integer> max_of_subarrays(int arr[], int n, int k) {
+        ArrayList<Integer> result = new ArrayList<> ();
+        
+        for(int i = 0; i <= n - k; i++) {
+            int max = arr[i];
+            for(int j = i + 1; j < i + k; j++) {
+                max = Math.max(max, arr[j]);
+            }
+            result.add(max);
+        }
 
         return result;
     }
 }
+
+*/
