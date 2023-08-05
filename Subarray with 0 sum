@@ -1,0 +1,47 @@
+// time: O(n)
+// space: O(n)
+
+class Solution {
+    //Function to check whether there is a subarray present with 0-sum or not.
+    static boolean findsum(int arr[],int n) {
+        
+        Set<Integer> prefixSum = new HashSet<> ();
+        
+        int sum = 0;
+        
+        for(int i = 0; i < n; i++) {
+            sum += arr[i];
+            if(sum == 0 || arr[i] == 0 || prefixSum.contains(sum))
+                return true;
+            
+            prefixSum.add(sum);
+        }
+        
+        return false;
+    }
+}
+
+/*
+// time: O(n^2)
+// space: O(1)
+
+class Solution {
+    //Function to check whether there is a subarray present with 0-sum or not.
+    static boolean findsum(int arr[],int n) {
+        
+        for(int i = 0; i < n; i++) {
+            int sum = arr[i];
+            if(sum == 0)
+                return true;
+            
+            for(int j = i + 1; j < n; j++) {
+                sum += arr[j];
+                if(sum == 0) 
+                    return true;
+            }
+        }
+        
+        return false;
+    }
+}
+*/
