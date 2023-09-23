@@ -35,3 +35,41 @@ class Solution
         return head;
     }
 }
+
+
+/*
+
+// two pointers
+// space: O(N)
+// time: O(1)
+
+class Solution {
+    public int sum(Node head, int k){
+        return sumUtil(head, k);
+    }
+    
+    private int sumUtil(Node head, int k) {
+        int sum = 0;
+        Node curr = head;
+        Node ptr = head;
+        
+        while(curr != null && k > 0) {
+            k--;
+            curr = curr.next;
+        }
+        
+        while(curr != null) {
+            ptr = ptr.next;
+            curr = curr.next;
+        }
+        
+        while(ptr != null) {
+            sum += ptr.data;
+            ptr = ptr.next;
+        }
+        
+        return sum;
+    } 
+}
+
+*/
