@@ -1,0 +1,13 @@
+// linear traversal
+// space: O(1)
+// time: O(N)
+
+class Solution {
+	void printList(Node head) {
+        Node curr = head;
+        do {
+            System.out.print(curr.data + " ");
+            curr = curr.next;
+        } while(curr != head);
+	}
+}
